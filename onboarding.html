@@ -217,16 +217,34 @@
                           <span
                             class="mdc-list-item__primary-text"
                             id="mail-to-name"
-                            >Frontend Web</span
-                          >
+                          ></span>
                           <span
                             class="mdc-list-item__secondary-text"
                             id="mail-to-description"
-                            >To all members of "Frontend Web"</span
-                          >
+                          ></span>
                         </span>
                       </li>
                     </ul>
+                    <div
+                      class="mdc-text-field mdc-text-field--outlined"
+                      style="margin-bottom: 16px"
+                    >
+                      <input
+                        type="text"
+                        id="email-subject"
+                        class="mdc-text-field__input"
+                        required
+                      />
+                      <div class="mdc-notched-outline">
+                        <div class="mdc-notched-outline__leading"></div>
+                        <div class="mdc-notched-outline__notch">
+                          <label for="eventName" class="mdc-floating-label"
+                            >Subject</label
+                          >
+                        </div>
+                        <div class="mdc-notched-outline__trailing"></div>
+                      </div>
+                    </div>
                     <div
                       class="mdc-text-field mdc-text-field--textarea mdc-text-field--no-label email-compose__textarea"
                     >
@@ -235,6 +253,7 @@
                         aria-label="Email to send"
                         placeholder="Type email contents here..."
                         id="email-contents"
+                        required
                       ></textarea>
                       <div class="mdc-notched-outline">
                         <div class="mdc-notched-outline__leading"></div>
