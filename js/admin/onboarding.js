@@ -385,7 +385,9 @@ $(function() {
     batch.delete(memberSignupRef);
     if (activeItem.category !== "novice") {
       const memberEmailRef = db
-        .collection("emails/" + activeItem.stack + "/" + activeItem.category)
+        .collection(
+          "emails/" + activeItem.stack.key + "/" + activeItem.category
+        )
         .doc(memberId);
       batch.delete(memberEmailRef);
     }
@@ -424,6 +426,7 @@ $(function() {
     if ($emailCompose.hasClass("email-compose--active")) return;
     const $mailToName = $("#mail-to-name");
     const $mailToDescription = $("#mail-to-description");
+    const $mailSubject = $("#email-subject");
     const $mailContents = $("#email-contents");
     const $sendButton = $('[data-action="send-email"]');
     const $cancelButton = $('[data-action="cancel-email"]');
@@ -437,24 +440,48 @@ $(function() {
       $mailToDescription.text('To "' + target.email + '"');
     }
     $mailContents.val("");
+    $mailSubject.val("");
     $cancelButton.off("click");
     $sendButton.off("click");
     $cancelButton.on("click", function() {
       $emailCompose.removeClass("email-compose--active");
     });
     $sendButton.on("click", function() {
-      // TODO: hookup mail to api
-      console.log(
-        "[DSC:Email]",
-        "Sending mail to " + target === "all" ? fullTitle : target.name
-      );
-      console.log("[DSC:Email]", $mailContents.val());
       showLoadingDialog();
-      setTimeout(() => {
-        hideLoadingDialog();
-        showSuccessDialog("Email sent successfully!");
-        $emailCompose.removeClass("email-compose--active");
-      }, 3000);
+      let emails = [];
+      if (target !== "all") emails = [target.email];
+      else {
+        const members = stackMembers[activeItem.stack][activeItem.category];
+        emails = members.map(member => member.email);
+      }
+      fetch("https://us-central1-dscfuta-website.cloudfunctions.net/sendMail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: "dscfuta@gmail.com",
+          to: emails,
+          subject: $mailSubject.val(),
+          message: $mailContents.val()
+        })
+      })
+        .then(res => {
+          hideLoadingDialog();
+          if (!res.ok) {
+            res.json().then(response => {
+              showErrorDialog(`An error occured: ${response.error}`);
+            });
+          } else {
+            showSuccessDialog("Email sent successfully!");
+            $emailCompose.removeClass("email-compose--active");
+          }
+        })
+        .catch(err => {
+          console.warn(err);
+          hideLoadingDialog();
+          showErrorDialog(`An error occured: ${err.message}`);
+        });
     });
     $emailCompose.addClass("email-compose--active");
   }
