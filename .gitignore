@@ -1,5 +1,4 @@
 .firebase
-firebase.config.js
 firebase-debug.log
 .idea
 node_modules
