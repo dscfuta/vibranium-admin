@@ -43,9 +43,12 @@
     border: 1px solid #cccccc60;
     border-radius: 50%;
     margin:20px 30px 5px;
-    z-index: 3;
+    z-index: 1;
     position: relative;
     background-color:white;
+}
+.mdc-card__primary-action:hover .user-icon {
+    background-color: #f4f4f4; 
 }
 .card-content {
     padding: 0 10px;
