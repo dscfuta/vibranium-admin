@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', Sans-serif;
+}
+
+.card-grid {
+    padding:10px 30px;
+    font-family: 'roboto', Sans-serif;
+    font-size: 10px;
+}
+
+.grid-heading {
+    font-size: 3.2em;
+    margin: 5px 0;
+    font-weight: 500;
+}
+.my-image-list {
+    justify-content: center;
+}
+.mdc-image-list__item {
+    margin:15px;
+    width:250px;
+}
+
+
+/* for the card */
+.mdc-card {
+    box-shadow: 0 2px 4px #ccc;
+    border-radius: 5px;
+    transition: box-shadow 0.4s linear;
+}
+.mdc-card:hover {
+    box-shadow: 2px 4px 8px #ccc;
+}
+
+.mdc-card__media:before{
+    content: '';
+    border-bottom: 1px solid #cccccc60;
+    position: absolute;
+    width: 100%;
+    top: 60%;
+    z-index: 1;
+}
+
+.user-icon {
+    padding: 12px;
+    border: 1px solid #cccccc60;
+    border-radius: 50%;
+    margin:20px 30px 5px;
+    z-index: 3;
+    position: relative;
+    background-color:white;
+}
+.card-content {
+    padding: 0 10px;
+}
+.card-content h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.card-content p {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+.card-content small {
+    color: #777;
+    font-size: .8rem;
+}
+.card-content .handle{
+    margin-top: 7px;
+}
+.card-content .handle h4 {
+    font-size:1rem;
+    margin-bottom: 0;
+}
+.add-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--mdc-theme-primary);
+}
