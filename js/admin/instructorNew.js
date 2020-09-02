@@ -1,6 +1,15 @@
-// instatiation of all mdc components
-// mdc.textField.MDCTextField.attachTo(document.querySelectorAll('.mdc-text-field'));
+// // instatiation of all mdc components
+// // text fields
+const textFields = document.querySelectorAll('.mdc-text-field');
+for (const textField of textFields) {
+  mdc.textField.MDCTextField.attachTo(textField);
+}
 
+// buttons
+const buttons = document.querySelectorAll('.mdc-button');
+for (const button of buttons) {
+  mdc.ripple.MDCRipple.attachTo(button);
+}
 
 
 // UI elements
@@ -79,6 +88,9 @@ const handleModalOpening = (action, instructor =  {
   // getting all the required details
   // the header and btn texts
   const modeTextSpaces = document.querySelectorAll('.dialog-mode');
+  const modeIcon = document.getElementById('update-icon');
+
+  modeIcon.className = 'fas fa-user-plus';
   
   // reveal the modal by removing the hide class
   modalDialog.classList.remove('hide');
@@ -92,18 +104,21 @@ const handleModalOpening = (action, instructor =  {
   // fill the fields if required
   if (action.toLowerCase() === "edit") {
     fillModalFields(instructor);
+
+    // change icon
+    modeIcon.className = 'fas fa-user-edit';
   }
 }
 
 const fillModalFields = (instructor) => {
-
-  // console.log("lol");
   // the input fields
   const nameUI = document.getElementById('instructorName'),
   roleUI = document.getElementById('instructorRole'),
   bioUI = document.getElementById('instructorBio'),
   githubUI = document.getElementById('githubID'),
   twitterUI = document.getElementById('twitterID');
+
+  const fieldList = [nameUI, roleUI, bioUI, githubUI, twitterUI]
 
 
   // fill in the fields 
@@ -112,6 +127,11 @@ const fillModalFields = (instructor) => {
   bioUI.value = instructor.bio;
   githubUI.value = instructor.githubID;
   twitterUI.value = instructor.twitterID;
+
+  // focus all fields
+  fieldList.forEach(field => {
+    field.focus();    
+  })
 }
 
 // check the clicked item

@@ -16,6 +16,8 @@
     <link href="css/admin.css" rel="stylesheet" /> 
     <!-- the above are Temporarily left here because of the main content -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    <!-- Required styles for Material Web -->
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
@@ -468,29 +470,39 @@
               <span class="dialog-mode">Add</span> Instructor
             </h2>
             <!-- icon for rither edit or add instructor -->
+            <div class="update-icon-container">
+              <i class="fas fa-user-plus" id="update-icon"></i>
+            </div>
             <!-- icon ends -->
-
+            <!-- inputs -->
             <div class="mdc-dialog__content" id="update-dialog-content">
-              <div class="mdc-text-field text-field mdc-text-field--outlined">
-                <input type="text" id="instructorName" class="mdc-text-field__input" required>
+              <!-- instructor name -->
+              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                <input type="text" 
+                id="instructorName" class="mdc-text-field__input" aria-labelledby="my-label-id" required autocomplete="off">
+                <!-- <i class="icon fas"></i> -->
                 <div class="mdc-notched-outline">
                   <div class="mdc-notched-outline__leading"></div>
                   <div class="mdc-notched-outline__notch">
-                    <label for="eventName" class="mdc-floating-label">Instructor's Name</label>
+                    <label  for="instructorName" class="mdc-floating-label" id="my-label-id">Instructor's name</label>
                   </div>
                   <div class="mdc-notched-outline__trailing"></div>
                 </div>
               </div>
-              <div class="mdc-text-field text-field mdc-text-field--outlined">
-                <input type="type" id="instructorRole" class="mdc-text-field__input" required>
+              <!-- role -->
+              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                <input type="type" 
+                id="instructorRole" class="mdc-text-field__input" aria-labelledby="instructor role" required>
                 <div class="mdc-notched-outline">
                   <div class="mdc-notched-outline__leading"></div>
                   <div class="mdc-notched-outline__notch">
-                    <label for="projectLink" class="mdc-floating-label">Role</label>
+                    <label  for="instructorRole" class="mdc-floating-label" id="my-label-id">Role</label>
                   </div>
                   <div class="mdc-notched-outline__trailing"></div>
                 </div>
               </div>
+              
+              <!-- bio -->
               <div class="mdc-text-field text-field text-field--textarea mdc-text-field--outlined mdc-text-field--textarea">
                 <textarea id="instructorBio" class="mdc-text-field__input" required maxlength="140"></textarea>
                 <div class="mdc-notched-outline">
@@ -501,22 +513,24 @@
                   <div class="mdc-notched-outline__trailing"></div>
                 </div>
               </div>
-              <div class="mdc-text-field text-field mdc-text-field--outlined">
-                <input type="text" id="githubID" class="mdc-text-field__input" required>
-                <div class="mdc-notched-outline">
-                  <div class="mdc-notched-outline__leading"></div>
-                  <div class="mdc-notched-outline__notch">
-                    <label for="projectRepo" class="mdc-floating-label">GithubID</label>
-                  </div>
-                  <div class="mdc-notched-outline__trailing"></div>
-                </div>
-              </div>
-              <div class="mdc-text-field text-field mdc-text-field--outlined">
+              <!-- twitter -->
+              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
                 <input type="text" id="twitterID" class="mdc-text-field__input" required>
                 <div class="mdc-notched-outline">
                   <div class="mdc-notched-outline__leading"></div>
                   <div class="mdc-notched-outline__notch">
                     <label for="projectRepo" class="mdc-floating-label">Twitter ID</label>
+                  </div>
+                  <div class="mdc-notched-outline__trailing"></div>
+                </div>
+              </div>
+              <!-- github -->
+              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                <input type="text" id="githubID" class="mdc-text-field__input" required>
+                <div class="mdc-notched-outline">
+                  <div class="mdc-notched-outline__leading"></div>
+                  <div class="mdc-notched-outline__notch">
+                    <label for="projectRepo" class="mdc-floating-label">GithubID</label>
                   </div>
                   <div class="mdc-notched-outline__trailing"></div>
                 </div>
@@ -550,8 +564,8 @@
     </div>
 
 
-    <script src="https://unpkg.com/
-    material-components-web@latest/dist/material-components-web.min.js"></script>
+    <!-- Required Material Web JavaScript library -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.js"></script>
     <script src="js/vendors/firebase-app.js"></script>
     <script src="js/vendors/firebase-auth.min.js"></script>
     <script src="js/vendors/firebase-firestore.min.js"></script>
@@ -560,9 +574,10 @@
     <script src="js/vendors/handlebars.min.js"></script>
     <script src="js/firebase.config.js"></script>
     <script src="js/firebase.js"></script>
-    <script src="js/material.js"></script>
+    <!-- <script src="js/material.js"></script> -->
     <script src="js/spinner.js"></script>
     <!-- <script src="js/admin/projects.js"></script> -->
     <script src="js/admin/instructorNew.js"></script>
+    <!-- <script src="js/admin/form-validation.js"></script> -->
   </body>
 </html>

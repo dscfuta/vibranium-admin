@@ -62,7 +62,34 @@
   opacity: 1;
   transition: all 0.4s ease-in;
 }
+/* heading */
+.mdc-dialog .mdc-dialog__title {
+  color:  var(--mdc-theme-primary);
+}
+/* modal icon */
+.mdc-dialog .update-icon-container {
+  border: 1px solid var(--mdc-theme-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--mdc-theme-primary);
+  font-size: 35px;
+  color: #FFF;
+  min-width: 90px;
+  min-height: 90px;
+  max-width: 90px;
+  max-height: 90px;
+  margin: 10px auto;
+}
+/* for the fields */
+.text-field.half-width {
+  width: 48%;
+  margin-left:3px;
+  margin-right: 3px;
+}
 
+/* JS CLASSES */
 .mdc-dialog.hide {
   display: none;
 }
