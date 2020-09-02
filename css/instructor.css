@@ -52,3 +52,21 @@
 .mdc-list-item .mdc-list-item__primary-text:before {
     height: 24px;
 }
+
+/* the modal */
+.mdc-dialog {
+  display: flex;
+}
+
+.mdc-dialog .mdc-dialog__container {
+  opacity: 1;
+  transition: all 0.4s ease-in;
+}
+
+.mdc-dialog.hide {
+  display: none;
+}
+
+.mdc-dialog.hide .mdc-dialog__container {
+  opacity: 0;
+}
