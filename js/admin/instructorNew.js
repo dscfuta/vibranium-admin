@@ -129,11 +129,11 @@ const handleModalRemove = (e) => {
   else if (target.closest('button').id === 'close-btn') {
     modalDialog.classList.add("hide");
   }
-  // if it the update btn  
-  else if (target.closest('button').id === 'updateButton') {
-    // get the text as the mode
-    console.log(target.textContent.trim())
-  }
+  // // if it the update btn  
+  // else if (target.closest('button').id === 'updateButton') {
+  //   // get the text as the mode
+  //   const mode = target.textContent.trim();
+  // }
 } 
 
 // run all event listeners
