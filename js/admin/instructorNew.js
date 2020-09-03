@@ -5,12 +5,19 @@ for (const textField of textFields) {
   mdc.textField.MDCTextField.attachTo(textField);
 }
 
-// buttons
-const buttons = document.querySelectorAll('.mdc-button');
-for (const button of buttons) {
-  mdc.ripple.MDCRipple.attachTo(button);
-}
+// cards
+const selector = '.mdc-card__primary-action, .mdc-fab .mdc-button';
 
+const ripples = [].forEach.call(document.querySelectorAll(selector), el => {
+    mdc.ripple.MDCRipple.attachTo(el);
+});
+
+
+// dialogs
+const dialogs = document.querySelectorAll('.mdc-dialog');
+dialogs.forEach(dialog => {
+ const modal = new mdc.dialog.MDCDialog(dialog);
+})
 
 // UI elements
 // get edit btns
@@ -118,7 +125,7 @@ const fillModalFields = (instructor) => {
   githubUI = document.getElementById('githubID'),
   twitterUI = document.getElementById('twitterID');
 
-  const fieldList = [nameUI, roleUI, bioUI, githubUI, twitterUI]
+  const fieldList = [githubUI, twitterUI, bioUI, roleUI, nameUI]
 
 
   // fill in the fields 
@@ -140,21 +147,24 @@ const handleModalRemove = (e) => {
 
   // if the target is any where around the document that is not the modal or it is the cancel btn, the modal should disappear;
   if (target.className === 'mdc-dialog__scrim') {
-    modalDialog.classList.add("hide");
+    hideModal();
   }
 
   if (target.closest('button') == null) {
     return;
   }
   else if (target.closest('button').id === 'close-btn') {
-    modalDialog.classList.add("hide");
+    hideModal();
   }
-  // // if it the update btn  
-  // else if (target.closest('button').id === 'updateButton') {
-  //   // get the text as the mode
-  //   const mode = target.textContent.trim();
-  // }
 } 
+const hideModal = () => {
+  modalDialog.classList.add("hide");
+    for (const textField of textFields) {
+    textField.querySelector('input')?
+    textField.querySelector('input').value= "":
+    textField.querySelector('textarea').value= "";
+  }
+}
 
 // run all event listeners
 initEvents();

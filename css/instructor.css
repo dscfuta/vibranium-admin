@@ -52,7 +52,6 @@
 .mdc-list-item .mdc-list-item__primary-text:before {
     height: 24px;
 }
-
 /* the modal */
 .mdc-dialog {
   display: flex;
@@ -61,6 +60,9 @@
 .mdc-dialog .mdc-dialog__container {
   opacity: 1;
   transition: all 0.4s ease-in;
+}
+.mdc-dialog .mdc-dialog__scrim {
+  opacity: 1;
 }
 /* heading */
 .mdc-dialog .mdc-dialog__title {
@@ -85,8 +87,19 @@
 /* for the fields */
 .text-field.half-width {
   width: 48%;
+  /* min-width: 200px; */
   margin-left:3px;
   margin-right: 3px;
+}
+#add-btn {
+  z-index: 4;
+}
+
+@media screen and (max-width: 490px) {
+  /* for the fields */
+  .text-field.half-width {
+    width: 100%;
+  }
 }
 
 /* JS CLASSES */
