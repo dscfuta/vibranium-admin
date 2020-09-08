@@ -61,6 +61,9 @@
   opacity: 1;
   transition: all 0.4s ease-in;
 }
+.mdc-dialog__container .mdc-dialog__surface {
+  padding:20px;
+}
 .mdc-dialog .mdc-dialog__scrim {
   opacity: 1;
 }
@@ -76,31 +79,98 @@
   align-items: center;
   border-radius: 50%;
   background-color: var(--mdc-theme-primary);
-  font-size: 35px;
+  font-size: 30px;
   color: #FFF;
-  min-width: 90px;
-  min-height: 90px;
-  max-width: 90px;
-  max-height: 90px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
   margin: 10px auto;
 }
-/* for the fields */
-.text-field.half-width {
-  width: 48%;
-  /* min-width: 200px; */
-  margin-left:3px;
-  margin-right: 3px;
+/* dialog content */
+/* the input holding the INPUT field and the helper text*/
+.mdc-dialog__content .input-area{
+  margin-bottom:1rem;
 }
+/* the input field and the helper text*/
+.input-area .text-field,
+.input-area .helper-text {
+  margin: 0;
+}
+
+/* the border around the input fields */
+.text-field .mdc-notched-outline .mdc-notched-outline__leading,
+.text-field .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-radius: 0;
+}
+/* JS styles validation success and error*/
+/* SUCCESS */
+/* default border */
+.mdc-text-field--valid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, 
+.mdc-text-field--valid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, 
+.mdc-text-field--valid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing,
+.mdc-text-field--valid:not(.mdc-text-field--disabled) .mdc-floating-label,
+.mdc-text-field--valid:not(.mdc-text-field--disabled) + .helper-text{
+  border-color: var(--mdc-theme-secondary);
+  color:var(--mdc-theme-secondary);
+}
+/* onblur */
+.mdc-text-field--valid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading, 
+.mdc-text-field--valid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch, 
+.mdc-text-field--valid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing,
+.mdc-text-field--valid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-floating-label,
+.mdc-text-field--valid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover + .helper-text  {
+  border-color: var(--mdc-theme-secondary);
+  color:var(--mdc-theme-secondary);
+}
+/* on focus */
+.mdc-text-field--valid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-notched-outline__leading, 
+.mdc-text-field--valid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-notched-outline__notch, 
+.mdc-text-field--valid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-notched-outline__trailing,
+.mdc-text-field--valid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-floating-label,
+.mdc-text-field--valid:not(.mdc-text-field--disabled).mdc-text-field--focused + .helper-text  {
+  border-color: var(--mdc-theme-secondary);
+  color:var(--mdc-theme-secondary);
+}
+
+/* ERROR */
+/* default border */
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, 
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, 
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) + .helper-text{
+  border-color: var(--mdc-theme-error);
+  color:var(--mdc-theme-error);
+}
+/* onblur */
+.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading, 
+.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch, 
+.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-floating-label,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover + .helper-text  {
+  border-color: var(--mdc-theme-error);
+  color:var(--mdc-theme-error);
+}
+/* on focus */
+.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-notched-outline__leading, 
+.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-notched-outline__notch, 
+.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-notched-outline__trailing,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline .mdc-floating-label,
+.mdc-text-field--invalid:not(.mdc-text-field--disabled).mdc-text-field--focused + .helper-text  {
+  border-color: var(--mdc-theme-error);
+  color:var(--mdc-theme-error);
+}
+
+/* modal btns */
+.mdc-dialog button {
+  font-weight: bold;
+}
+
 #add-btn {
   z-index: 4;
 }
 
-@media screen and (max-width: 490px) {
-  /* for the fields */
-  .text-field.half-width {
-    width: 100%;
-  }
-}
 
 /* JS CLASSES */
 .mdc-dialog.hide {

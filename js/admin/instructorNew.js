@@ -28,6 +28,9 @@ const addBtn = document.getElementById('add-btn');
 // get the modal dialog box
 const modalDialog = document.getElementById('mdc-modal-dialog');
 
+// get all modal inputs
+const modalInputs = document.querySelectorAll('.modalInput');
+
 // function to init event listeners
 const initEvents = () => {
   // to the card list, then delegate to the edit and delete btn
@@ -38,6 +41,12 @@ const initEvents = () => {
 
   // to the page
   document.addEventListener("click", handleModalRemove);
+
+  // events for the inputs
+  modalInputs.forEach(modalInput => {
+    modalInput.addEventListener('focus', handleFocus);
+    modalInput.addEventListener('blur', handleBlur);
+  })
 }
 
 // when the cards are clicked 
@@ -159,10 +168,52 @@ const handleModalRemove = (e) => {
 } 
 const hideModal = () => {
   modalDialog.classList.add("hide");
-    for (const textField of textFields) {
-    textField.querySelector('input')?
-    textField.querySelector('input').value= "":
-    textField.querySelector('textarea').value= "";
+  // wipe the inputs clean
+  modalInputs.forEach(modalInput => {
+    modalInput.value ="";
+    // remove all necessary class
+    modalInput.parentElement.classList.remove('mdc-text-field--valid');
+    modalInput.parentElement.classList.remove('mdc-text-field--invalid');
+    modalInput.parentElement.classList.remove('mdc-text-field--focused');
+
+    // remove the helper text
+    modalInput.parentElement.nextElementSibling.textContent ='';
+  })
+}
+
+// for the inputs
+const handleFocus = (e) => {
+  // get the parent and the helper text
+  const parent = e.target.parentElement;
+  const helperText = e.target.parentElement.nextElementSibling;
+
+  console.log('focused',e.target, parent, helperText);
+
+  // remove the valid and invalid classes from the parent
+  parent.classList.remove('mdc-text-field--valid');
+  parent.classList.remove('mdc-text-field--invalid');
+
+  // add the focused class
+  parent.classList.add('mdc-text-field--focused')
+
+  // remove the helper text content if needed
+}
+
+const handleBlur = (e) => {
+  // get the parent and the helper text
+  const parent = e.target.parentElement;
+  const helperText = e.target.parentElement.nextElementSibling;
+  
+  console.log('blurred', e.target, parent, helperText);
+  // check for validity of the input
+  if (e.target.checkValidity()) {
+    // success
+    parent.classList.add('mdc-text-field--valid');
+    helperText.textContent = '';
+  }else {
+    // failure
+    parent.classList.add('mdc-text-field--invalid');
+    helperText.textContent = 'Enter a valid input';
   }
 }
 

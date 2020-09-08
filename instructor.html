@@ -477,63 +477,76 @@
             <!-- inputs -->
             <div class="mdc-dialog__content" id="update-dialog-content">
               <!-- instructor name -->
-              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
-                <input type="text" 
-                id="instructorName" class="mdc-text-field__input" aria-labelledby="my-label-id" required autocomplete="off">
-                <!-- <i class="icon fas"></i> -->
-                <div class="mdc-notched-outline">
-                  <div class="mdc-notched-outline__leading"></div>
-                  <div class="mdc-notched-outline__notch">
-                    <label  for="instructorName" class="mdc-floating-label" id="my-label-id">Instructor's name</label>
+              <div class="input-area">
+                <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                  <input type="text" 
+                  id="instructorName" class="mdc-text-field__input modalInput" aria-labelledby="my-label-id" required autocomplete="off">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label  for="instructorName" class="mdc-floating-label" id="my-label-id">Instructor's name</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
                   </div>
-                  <div class="mdc-notched-outline__trailing"></div>
                 </div>
+                <p class="helper-text"></p>
               </div>
               <!-- role -->
-              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
-                <input type="type" 
-                id="instructorRole" class="mdc-text-field__input" aria-labelledby="instructor role" required>
-                <div class="mdc-notched-outline">
-                  <div class="mdc-notched-outline__leading"></div>
-                  <div class="mdc-notched-outline__notch">
-                    <label  for="instructorRole" class="mdc-floating-label" id="my-label-id">Role</label>
+              <div class="input-area">
+                <div class="mdc-text-field text-field mdc-text-field--outlined">
+                  <input type="type" 
+                  id="instructorRole" class="mdc-text-field__input modalInput" aria-labelledby="instructor role" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label  for="instructorRole" class="mdc-floating-label" id="my-label-id">Role</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
                   </div>
-                  <div class="mdc-notched-outline__trailing"></div>
                 </div>
-              </div>
-              
+                <p class="helper-text"></p>
+              </div>              
               <!-- bio -->
-              <div class="mdc-text-field text-field text-field--textarea mdc-text-field--outlined mdc-text-field--textarea">
-                <textarea id="instructorBio" class="mdc-text-field__input" required maxlength="140"></textarea>
-                <div class="mdc-notched-outline">
-                  <div class="mdc-notched-outline__leading"></div>
-                  <div class="mdc-notched-outline__notch">
-                    <label for="projectDescription" class="mdc-floating-label">Bio</label>
+              <div class="input-area">
+                <div class="mdc-text-field text-field text-field--textarea mdc-text-field--outlined mdc-text-field--textarea">
+                  <textarea id="instructorBio" class="mdc-text-field__input modalInput" required maxlength="140"></textarea>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="projectDescription" class="mdc-floating-label">Bio</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
                   </div>
-                  <div class="mdc-notched-outline__trailing"></div>
                 </div>
+                <p class="helper-text"></p>
               </div>
               <!-- twitter -->
-              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
-                <input type="text" id="twitterID" class="mdc-text-field__input" required>
-                <div class="mdc-notched-outline">
-                  <div class="mdc-notched-outline__leading"></div>
-                  <div class="mdc-notched-outline__notch">
-                    <label for="projectRepo" class="mdc-floating-label">Twitter ID</label>
+              <div class="input-area">
+                <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                  <input type="text" id="twitterID" class="mdc-text-field__input modalInput" pattern="(^|[^@\w])@(\w{1,15})\b" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="projectRepo" class="mdc-floating-label">Twitter ID</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
                   </div>
-                  <div class="mdc-notched-outline__trailing"></div>
                 </div>
+                <div class="helper-text"></div>
               </div>
               <!-- github -->
-              <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
-                <input type="text" id="githubID" class="mdc-text-field__input" required>
-                <div class="mdc-notched-outline">
-                  <div class="mdc-notched-outline__leading"></div>
-                  <div class="mdc-notched-outline__notch">
-                    <label for="projectRepo" class="mdc-floating-label">GithubID</label>
+              <div class="input-area">
+                <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                  <input type="text" id="githubID" class="mdc-text-field__input modalInput" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="projectRepo" class="mdc-floating-label">GithubID</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
                   </div>
-                  <div class="mdc-notched-outline__trailing"></div>
                 </div>
+                <div class="helper-text"></div>
               </div>
             </div>
             <footer class="mdc-dialog__actions">
