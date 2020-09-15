@@ -53,20 +53,6 @@
     height: 24px;
 }
 /* the modal */
-.mdc-dialog {
-  display: flex;
-}
-
-.mdc-dialog .mdc-dialog__container {
-  opacity: 1;
-  transition: all 0.4s ease-in;
-}
-.mdc-dialog__container .mdc-dialog__surface {
-  padding:20px;
-}
-.mdc-dialog .mdc-dialog__scrim {
-  opacity: 1;
-}
 /* heading */
 .mdc-dialog .mdc-dialog__title {
   color:  var(--mdc-theme-primary);
@@ -169,14 +155,4 @@
 
 #add-btn {
   z-index: 4;
-}
-
-
-/* JS CLASSES */
-.mdc-dialog.hide {
-  display: none;
-}
-
-.mdc-dialog.hide .mdc-dialog__container {
-  opacity: 0;
 }

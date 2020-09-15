@@ -15,8 +15,11 @@ const ripples = [].forEach.call(document.querySelectorAll(selector), el => {
 
 // dialogs
 const dialogs = document.querySelectorAll('.mdc-dialog');
+const dialogInstances = {};
 dialogs.forEach(dialog => {
- const modal = new mdc.dialog.MDCDialog(dialog);
+  const modalID = dialog.dataset.modalId;
+  dialogInstances[modalID] = new mdc.dialog.MDCDialog(dialog);
+
 })
 
 // UI elements
@@ -108,10 +111,9 @@ const handleModalOpening = (action, instructor =  {
 
   modeIcon.className = 'fas fa-user-plus';
   
-  // reveal the modal by removing the hide class
-  modalDialog.classList.remove('hide');
+  // reveal the modal
+  dialogInstances['instructor-form'].open()
   
-
   // change the text to the required action
   modeTextSpaces.forEach((space) => {
     space.textContent = action;
@@ -167,7 +169,9 @@ const handleModalRemove = (e) => {
   }
 } 
 const hideModal = () => {
-  modalDialog.classList.add("hide");
+  dialogInstances['instructor-form'].close()
+
+  // modalDialog.classList.add("hide");
   // wipe the inputs clean
   modalInputs.forEach(modalInput => {
     modalInput.value ="";
