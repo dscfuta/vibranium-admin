@@ -26,8 +26,7 @@
           <h2 class="mdc-typography--headline6">Login to DSC</h2>
           <form id="loginForm">
             <div
-              class="mdc-text-field text-field mdc-text-field--outlined mdc-text-field--with-leading-icon">
-              <i class="material-icons mdc-text-field__icon">account_circle</i>
+              class="mdc-text-field text-field mdc-text-field--outlined">
               <input type="email" id="inputEmail" class="mdc-text-field__input">
               <div class="mdc-notched-outline">
                 <div class="mdc-notched-outline__leading"></div>
@@ -38,8 +37,7 @@
               </div>
             </div>
             <div
-              class="mdc-text-field text-field demo-text-field-outlined-shaped mdc-text-field--outlined mdc-text-field--with-leading-icon">
-              <i class="material-icons mdc-text-field__icon">lock</i>
+              class="mdc-text-field text-field demo-text-field-outlined-shaped mdc-text-field--outlined">
               <input type="password" id="inputPassword" class="mdc-text-field__input">
               <div class="mdc-notched-outline">
                 <div class="mdc-notched-outline__leading"></div>
@@ -55,6 +53,28 @@
           </form>
         </div>
       </div>
+    </div>
+
+    <!-- error modal -->
+    <div class="mdc-dialog" data-modal-id="error-message">
+      <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="my-dialog-title"
+          aria-describedby="my-dialog-content">
+          <div class="mdc-dialog__content" id="my-dialog-content">
+            
+          </div>
+          <div class="mdc-dialog__actions">
+            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">Cancel</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-dialog__scrim"></div>
     </div>
 
     <script src="js/vendors/firebase-app.js"></script>
