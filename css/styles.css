@@ -136,19 +136,10 @@ a.icon-link {
 }
 
 
-.text-field .mdc-notched-outline .mdc-notched-outline__leading {
-  width: 28px;
-}
-
 .text-field.text-field--textarea .material-icons {
   top: 16px;
 }
 
-/* the border around the input fields */
-.text-field .mdc-notched-outline .mdc-notched-outline__leading,
-.text-field .mdc-notched-outline .mdc-notched-outline__trailing {
-  border-radius: 0;
-}
 
 .login-card .login-button {
   width: 80%;
