@@ -9,12 +9,7 @@
     <meta name="keywords" content="dsc, futa, kelvin kamau,google developers, sub saharan africa, kenya, computer science"/>
     <title>DSC Admin - Materials</title>
     <link rel="icon" href="images/icon.png" type="image/png" />
-    <!-- Temporarily left here because of the main content -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"/>
-    <link href="css/admin.css" rel="stylesheet" /> 
-    <!-- the above are Temporarily left here because of the main content -->
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -72,152 +67,8 @@
           </div>
         </aside>
         <div id="content-wrapper">
-            <div class="container-fluid">
-              <!-- Breadcrumbs-->
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-                <li class="breadcrumb-item active">Materials</li>
-              </ol>
-    
-              <div class="card mb-3">
-                <div class="card-header d-flex align-items-center">
-                  <span class="mr-3">Stack:</span>
-                  <select id="stackSelect" class="form-control">
-                    <option value="web">Web</option>
-                    <option value="mobile">Mobile</option>
-                    <option value="mlai">Machine Learning / AI</option>
-                    <option value="cloud">Cloud</option>
-                  </select>
-                </div>
-              </div>
-    
-              <!-- dashboard card -->
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-fw fa-folder"></i> Courses
-                  <i class="fas fa-sync fa-spin btn-refresh" data-type="course"></i>
-                </div>
-                <div class="card-body">
-                  <div
-                    class="alert alert-danger error-alert"
-                    data-type="course"
-                    style="display: none"
-                  ></div>
-                  <table
-                    class="table table-striped"
-                    id="courseTable"
-                    style="min-width: 100%"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Level</th>
-                        <th>Link</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-                <div class="card-footer text-right">
-                  <button
-                    class="btn btn-primary btn-add"
-                    data-type="course"
-                    disabled
-                  >
-                    Add Course
-                  </button>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-fw fa-folder"></i> Books
-                  <i class="fas fa-sync fa-spin btn-refresh" data-type="book"></i>
-                </div>
-                <div class="card-body">
-                  <div
-                    class="alert alert-danger error-alert"
-                    data-type="book"
-                    style="display: none"
-                  ></div>
-                  <table
-                    class="table table-striped"
-                    id="bookTable"
-                    style="min-width: 100%"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Description</th>
-                        <th>Level</th>
-                        <th>Link</th>
-                        <th>Availability</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-                <div class="card-footer text-right">
-                  <button class="btn btn-primary btn-add" data-type="book" disabled>
-                    Add Book
-                  </button>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-fw fa-folder"></i> Documentation
-                  <i
-                    class="fas fa-sync fa-spin btn-refresh"
-                    data-type="documentation"
-                  ></i>
-                </div>
-                <div class="card-body">
-                  <div
-                    class="alert alert-danger error-alert"
-                    data-type="documentation"
-                    style="display: none"
-                  ></div>
-                  <table
-                    class="table table-striped"
-                    id="documentationTable"
-                    style="min-width: 100%"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Level</th>
-                        <th>Link</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-                <div class="card-footer text-right">
-                  <button
-                    class="btn btn-primary btn-add"
-                    data-type="documentation"
-                    disabled
-                  >
-                    Add Documentation
-                  </button>
-                </div>
-              </div>
-    
-              <!-- Sticky Footer -->
-              <footer class="sticky-footer">
-                <div class="container my-auto">
-                  <div class="copyright text-center my-auto">
-                    <span>Copyright © DSC FUTA 2020</span>
-                  </div>
-                </div>
-              </footer>
-            </div>
-            <!-- /.content-wrapper -->
+            
+          <!-- /.content-wrapper -->
         </div>
       </div>
       <!-- /#wrapper -->
@@ -229,11 +80,6 @@
     <script src="js/vendors/firebase-firestore.min.js"></script>
     <script src="js/vendors/firebase-storage.min.js"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
-    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="js/admin.min.js"></script> -->
     <script src="js/firebase.config.js"></script>
     <script src="js/firebase.js"></script>
     <script src="js/admin/dashboard.js"></script>
