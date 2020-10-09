@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet" /> 
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./css/tutorial.css">
   </head>
 
   <body class="mdc-typography">
@@ -67,8 +69,195 @@
           </div>
         </aside>
         <div id="content-wrapper">
-            
-          <!-- /.content-wrapper -->
+          <div class="content-container">
+            <!-- dropdown -->
+          <div class="mdc-select mdc-select--outlined stack-select-menu" data-select-id="stack-select">
+            <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+              <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+              <span class="mdc-select__dropdown-icon">
+                <svg
+                    class="mdc-select__dropdown-icon-graphic"
+                    viewBox="7 10 10 5">
+                  <polygon
+                      class="mdc-select__dropdown-icon-inactive"
+                      stroke="none"
+                      fill-rule="evenodd"
+                      points="7 10 12 15 17 10">
+                  </polygon>
+                  <polygon
+                      class="mdc-select__dropdown-icon-active"
+                      stroke="none"
+                      fill-rule="evenodd"
+                      points="7 15 12 10 17 15">
+                  </polygon>
+                </svg>
+              </span>
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span id="outlined-select-label" class="mdc-floating-label">Select an option</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
+            </div>
+          
+            <!-- Other elements from the select remain. -->
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface" role="listbox">
+              <ul class="mdc-list">
+                <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="all">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">All</span>
+                </li>
+                <li class="mdc-list-item" data-value="web">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Web</span>
+                </li>
+                <li class="mdc-list-item" data-value="mobile">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Mobile</span>
+                </li>
+                <li class="mdc-list-item" data-value="machineLearning">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Machine Learning/AI</span>
+                </li>
+                <li class="mdc-list-item" data-value="cloud">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Cloud</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- /.dropdown -->
+          <!-- tab -->
+          <div class="mdc-tab-bar" role="tablist"
+          data-tab-bar-id="material-categories">
+            <div class="mdc-tab-scroller">
+              <div class="mdc-tab-scroller__scroll-area">
+                <div class="mdc-tab-scroller__scroll-content">
+                  <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0" data-value="books">
+                    <span class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">books</span>
+                    </span>
+                    <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                  </button>
+                  <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1" data-value="documentations">
+                    <span class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">Documentations</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                  </button>
+                  <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1" data-value="courses">
+                    <span class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">courses</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.tab -->
+          <!-- cards -->
+          <div class="card-grid">
+            <ul class="mdc-image-list my-image-list" id="card-list">
+              <!-- book card -->
+              <li class="mdc-image-list__item">
+                  <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
+                    <div class="mdc-card__primary-action">
+                    <div class="card__content">
+                      <h2 class="card__title mdc-typography--headline6">Book title</h2>
+                      <h6 class="card__subtitle card__subtitle--with-icon card__subtitle--no-spacing mdc-typography--body2"> Book Author</h6>
+                      <span class="mdc-typography--caption level">Beginner</span>
+                    </div>
+                    <div class="mdc-card__media">
+                      <img src="./img/material-card-image.png" alt="">
+                    </div>
+                    <div class="card__content">
+                      <span class="mdc-typography--overline availability">availability: printed, e-book, online</span>
+                      <div class="mdc-typography--caption">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, ipsam.
+                      </div>
+                    </div>
+                    </div>
+                    <div class="mdc-card__actions">
+                      <div class="mdc-card__action-buttons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon">
+                          launch
+                        </button>
+                      </div>
+                      <div class="mdc-card__action-icons">
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" title="edit" >edit</button>
+                        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon delete-button" title="delete">delete</button>
+                      </div>
+                    </div>
+                  </div>
+              </li>
+              <!-- documentation card -->
+              <li class="mdc-image-list__item">
+                <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
+                  <div class="mdc-card__primary-action">
+                  <div class="card__content">
+                    <h2 class="card__title mdc-typography--headline6">Documentation Title</h2>
+                    <p class="mdc-typography--caption level">Beginner</p>
+                    <div class="mdc-typography--caption">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, ipsam.
+                    </div>
+                  </div>
+                  </div>
+                  <div class="mdc-card__actions">
+                    <div class="mdc-card__action-buttons">
+                      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button">
+                        launch
+                      </button>
+                    </div>
+                    <div class="mdc-card__action-icons">
+                      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" title="edit" >edit</button>
+                      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon delete-button" title="delete">delete</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <!-- course card -->
+              <li class="mdc-image-list__item">
+                <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
+                  <div class="mdc-card__primary-action">
+                  <div class="card__content">
+                    <h2 class="card__title mdc-typography--headline6">Course Title</h2>
+                    <p class="mdc-typography--caption level">Beginner</p>
+                    <div class="mdc-typography--caption">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, ipsam.
+                    </div>
+                  </div>
+                  </div>
+                  <div class="mdc-card__actions">
+                    <div class="mdc-card__action-buttons">
+                      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button">
+                        launch
+                      </button>
+                    </div>
+                    <div class="mdc-card__action-icons">
+                      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" title="edit" >edit</button>
+                      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon delete-button" title="delete">delete</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- /.cards -->
+          <!-- add btn -->
+          <!-- /.add btn -->
+        </div>
+        <!-- /.content-wrapper -->
         </div>
       </div>
       <!-- /#wrapper -->
@@ -83,6 +272,7 @@
     <script src="js/firebase.config.js"></script>
     <script src="js/firebase.js"></script>
     <script src="js/admin/dashboard.js"></script>
-    <script src="js/material.js"></script>
+    <!-- <script src="js/material.js"></script> -->
+    <script src="js/admin/tutorialsNew.js"></script>
   </body>
 </html>
