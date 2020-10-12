@@ -19,272 +19,75 @@ const stateOfMaterialsToPresent = {
 }
 //all the materials
 const allMaterials = {
-  all:{
-    books: [
-      {
-        title: 'Eloquent Javascript',
-        author: 'Marijn Haverbeke',
-        description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-        availability: 'Online, E-book,Printed'
-      },{
-        title: 'Eloquent Javascript',
-        author: 'Marijn Haverbeke',
-        description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Eloquent Javascript',
-        author: 'Marijn Haverbeke',
-        description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Head First Android Development',
-        author: 'Dawn Griffiths',
-        description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Head First Android Development',
-        author: 'Dawn Griffiths',
-        description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Head First Android Development',
-        author: 'Dawn Griffiths',
-        description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Python Machine Learning',
-        author: 'Sebastian Raschka, Vahid Mirjalili',
-        description: 'Applied machine learning with a solid foundation in theory. Revised and expanded for TensorFlow 2, GANs, and reinforcement learning.',
-        availability: 'Printed'
-      },{
-        title: 'Cloud Computing',
-        author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-        description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-        availability: 'Online, E-book'
-      },{
-        title: 'Cloud Computing',
-        author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-        description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-        availability: 'Online, E-book'
-      },{
-        title: 'Cloud Computing',
-        author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-        description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-        availability: 'Online, E-book'
-      }
-    ],
-    documentations: [
-      {
-        title:'Bootstrap',
-        description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.',
-      },{
-        title:'Bootstrap',
-        description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.',
-      },{
-        title:'Bootstrap',
-        description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.',
-      },{
-        title: 'Flutter',
-        description: 'Apps take flight with Flutter'
-      },{
-        title: 'Flutter',
-        description: 'Apps take flight with Flutter'
-      },{
-        title: 'Flutter',
-        description: 'Apps take flight with Flutter'
-      },{
-        title: 'Keras',
-        description: 'Keras is an API designed for human beings, not machines.'
-      },{
-        title: 'Keras',
-        description: 'Keras is an API designed for human beings, not machines.'
-      },{
-        title: 'Keras',
-        description: 'Keras is an API designed for human beings, not machines.'
-      },{
-        title: 'Google Cloud',
-        description: 'Get started with Google Cloud'
-      },{
-        title: 'Google Cloud',
-        description: 'Get started with Google Cloud'
-      },{
-        title: 'Google Cloud',
-        description: 'Get started with Google Cloud'
-      }
-    ],
-    courses: [
-      {
-        title: 'Introduction to Web Development',
-        description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
-      },{
-        title: 'Introduction to Web Development',
-        description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
-      },{
-        title: 'Introduction to Web Development',
-        description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
-      },{
-        title: 'Kotlin for Java Developers',
-        description: 'The Kotlin programming language is a modern language that gives you more power for your everyday tasks.'
-      },{
-        title: 'Kotlin for Java Developers',
-        description: 'The Kotlin programming language is a modern language that gives you more power for your everyday tasks.'
-      },{
-        title: 'Data Structures',
-        description: 'A good algorithm usually comes together with a set of good data structures that allow the algorithm to manipulate the data efficiently.'
-      },{
-        title: 'Google Cloud Platform Fundamentals',
-        description: 'This course introduces you to important concepts and terminology for working with Google Cloud Platform (GCP).'
-      }
-    ]
-  },
   web: {
-    books: [
-      {
-        title: 'Eloquent Javascript',
-        author: 'Marijn Haverbeke',
-        description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Eloquent Javascript',
-        author: 'Marijn Haverbeke',
-        description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Eloquent Javascript',
-        author: 'Marijn Haverbeke',
-        description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-        availability: 'Online, E-book, Printed'
-      }
-    ],
-    documentations: [
-      {
-        title:'Bootstrap',
-        description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.',
-      },{
-        title:'Bootstrap',
-        description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.',
-      },{
-        title:'Bootstrap',
-        description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.',
-      }
-    ],
-    courses: [
-      {
-        title: 'Introduction to Web Development',
-        description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
-      },{
-        title: 'Introduction to Web Development',
-        description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
-      },{
-        title: 'Introduction to Web Development',
-        description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
-      }
-    ]
+    books: Array.from({ length: 3}, (_) => ({
+      title: 'Eloquent Javascript',
+      author: 'Marijn Haverbeke',
+      description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
+      availability: 'Online, E-book,Printed'
+    })),
+    documentations: Array.from({ length: 3}, (_) => ({
+      title:'Bootstrap',
+      description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.'
+    })),
+    courses: Array.from({ length: 3}, (_) => ({
+      title: 'Introduction to Web Development',
+      description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
+    }))
   },
   mobile: {
-    books: [
-      {
-        title: 'Head First Android Development',
+    books:Array.from({ length: 3}, (_) => ({
+      title: 'Head First Android Development',
         author: 'Dawn Griffiths',
         description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
         availability: 'Online, E-book, Printed'
-      },{
-        title: 'Head First Android Development',
-        author: 'Dawn Griffiths',
-        description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
-        availability: 'Online, E-book, Printed'
-      },{
-        title: 'Head First Android Development',
-        author: 'Dawn Griffiths',
-        description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
-        availability: 'Online, E-book, Printed'
-      }
-    ],
-    documentations: [
-      {
-        title: 'Flutter',
+    })),
+    documentations: Array.from({ length: 3}, (_) => ({
+      title: 'Flutter',
         description: 'Apps take flight with Flutter'
-      },{
-        title: 'Flutter',
-        description: 'Apps take flight with Flutter'
-      },{
-        title: 'Flutter',
-        description: 'Apps take flight with Flutter'
-      }
-    ],
-    courses: [
-      {
-        title: 'Kotlin for Java Developers',
-        description: 'The Kotlin programming language is a modern language that gives you more power for your everyday tasks.'
-      }
-    ]
+    })),
+    courses: Array.from({ length: 3}, (_) => ({
+      title: 'Kotlin for Java Developers',
+      description: 'The Kotlin programming language is a modern language that gives you more power for your everyday tasks.'
+    }))
   },
   machineLearning: {
-    books: [
-      {
-        title: 'Python Machine Learning',
-        author: 'Sebastian Raschka, Vahid Mirjalili',
-        description: 'Applied machine learning with a solid foundation in theory. Revised and expanded for TensorFlow 2, GANs, and reinforcement learning.',
-        availability: 'Printed'
-      }
-    ],
-    documentations: [
-      {
-        title: 'Keras',
-        description: 'Keras is an API designed for human beings, not machines.'
-      },{
-        title: 'Keras',
-        description: 'Keras is an API designed for human beings, not machines.'
-      },{
-        title: 'Keras',
-        description: 'Keras is an API designed for human beings, not machines.'
-      }
-    ],
-    courses: [
-      {
-        title: 'Data Structures',
+    books:Array.from({ length: 3}, (_) => ({
+      title: 'Python Machine Learning',
+      author: 'Sebastian Raschka, Vahid Mirjalili',
+      description: 'Applied machine learning with a solid foundation in theory. Revised and expanded for TensorFlow 2, GANs, and reinforcement learning.',
+      availability: 'Printed'
+    })),
+    documentations: Array.from({ length: 3}, (_) => ({
+      title: 'Keras',
+      description: 'Keras is an API designed for human beings, not machines.'
+    })),
+    courses: Array.from({ length: 3}, (_) => ({
+      title: 'Data Structures',
         description: 'A good algorithm usually comes together with a set of good data structures that allow the algorithm to manipulate the data efficiently.'
-      }
-    ]
+    }))
   },
   cloud: {
-    books: [
-      {
-        title: 'Cloud Computing',
-        author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-        description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-        availability: 'Online, E-book'
-      },{
-        title: 'Cloud Computing',
-        author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-        description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-        availability: 'Online, E-book'
-      },{
-        title: 'Cloud Computing',
-        author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-        description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-        availability: 'Online, E-book'
-      }
-    ],
-    documentations: [
-      {
-        title: 'Google Cloud',
-        description: 'Get started with Google Cloud'
-      },{
-        title: 'Google Cloud',
-        description: 'Get started with Google Cloud'
-      },{
-        title: 'Google Cloud',
-        description: 'Get started with Google Cloud'
-      }
-    ],
-    courses: [
-      {
-        title: 'Google Cloud Platform Fundamentals',
-        description: 'This course introduces you to important concepts and terminology for working with Google Cloud Platform (GCP).'
-      }
-    ]
+    books:Array.from({ length: 3}, (_) => ({
+      title: 'Cloud Computing',
+      author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
+      description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
+      availability: 'Online, E-book'
+    })),
+    documentations: Array.from({ length: 3}, (_) => ({
+      title: 'Google Cloud',
+      description: 'Get started with Google Cloud'
+    })),
+    courses: Array.from({ length: 3}, (_) => ({
+      title: 'Google Cloud Platform Fundamentals',
+      description: 'This course introduces you to important concepts and terminology for working with Google Cloud Platform (GCP).'
+    }))
   }
+}
+allMaterials.all = {
+  books: [...allMaterials.web.books, ...allMaterials.mobile.books, ...allMaterials.machineLearning.books, ...allMaterials.cloud.books],
+  documentations: [...allMaterials.web.documentations, ...allMaterials.mobile.documentations, ...allMaterials.machineLearning.documentations, ...allMaterials.cloud.documentations],
+  courses: [...allMaterials.web.courses, ...allMaterials.mobile.courses, ...allMaterials.machineLearning.courses, ...allMaterials.cloud.courses]
 }
 
 // functions
