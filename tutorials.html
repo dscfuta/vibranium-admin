@@ -9,16 +9,13 @@
     <meta name="keywords" content="dsc, futa, kelvin kamau,google developers, sub saharan africa, kenya, computer science"/>
     <title>DSC Admin - Materials</title>
     <link rel="icon" href="images/icon.png" type="image/png" />
-    <!-- Temporarily left here because of the main content -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"/>
-    <link href="css/admin.css" rel="stylesheet" /> 
-    <!-- the above are Temporarily left here because of the main content -->
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet" /> 
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./css/tutorial.css">
   </head>
 
   <body class="mdc-typography">
@@ -72,153 +69,118 @@
           </div>
         </aside>
         <div id="content-wrapper">
-            <div class="container-fluid">
-              <!-- Breadcrumbs-->
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
-                <li class="breadcrumb-item active">Materials</li>
-              </ol>
-    
-              <div class="card mb-3">
-                <div class="card-header d-flex align-items-center">
-                  <span class="mr-3">Stack:</span>
-                  <select id="stackSelect" class="form-control">
-                    <option value="web">Web</option>
-                    <option value="mobile">Mobile</option>
-                    <option value="mlai">Machine Learning / AI</option>
-                    <option value="cloud">Cloud</option>
-                  </select>
-                </div>
-              </div>
-    
-              <!-- dashboard card -->
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-fw fa-folder"></i> Courses
-                  <i class="fas fa-sync fa-spin btn-refresh" data-type="course"></i>
-                </div>
-                <div class="card-body">
-                  <div
-                    class="alert alert-danger error-alert"
-                    data-type="course"
-                    style="display: none"
-                  ></div>
-                  <table
-                    class="table table-striped"
-                    id="courseTable"
-                    style="min-width: 100%"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Level</th>
-                        <th>Link</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-                <div class="card-footer text-right">
-                  <button
-                    class="btn btn-primary btn-add"
-                    data-type="course"
-                    disabled
-                  >
-                    Add Course
-                  </button>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-fw fa-folder"></i> Books
-                  <i class="fas fa-sync fa-spin btn-refresh" data-type="book"></i>
-                </div>
-                <div class="card-body">
-                  <div
-                    class="alert alert-danger error-alert"
-                    data-type="book"
-                    style="display: none"
-                  ></div>
-                  <table
-                    class="table table-striped"
-                    id="bookTable"
-                    style="min-width: 100%"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Description</th>
-                        <th>Level</th>
-                        <th>Link</th>
-                        <th>Availability</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-                <div class="card-footer text-right">
-                  <button class="btn btn-primary btn-add" data-type="book" disabled>
-                    Add Book
-                  </button>
-                </div>
-              </div>
-              <div class="card mb-3">
-                <div class="card-header">
-                  <i class="fas fa-fw fa-folder"></i> Documentation
-                  <i
-                    class="fas fa-sync fa-spin btn-refresh"
-                    data-type="documentation"
-                  ></i>
-                </div>
-                <div class="card-body">
-                  <div
-                    class="alert alert-danger error-alert"
-                    data-type="documentation"
-                    style="display: none"
-                  ></div>
-                  <table
-                    class="table table-striped"
-                    id="documentationTable"
-                    style="min-width: 100%"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Level</th>
-                        <th>Link</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-                <div class="card-footer text-right">
-                  <button
-                    class="btn btn-primary btn-add"
-                    data-type="documentation"
-                    disabled
-                  >
-                    Add Documentation
-                  </button>
-                </div>
-              </div>
-    
-              <!-- Sticky Footer -->
-              <footer class="sticky-footer">
-                <div class="container my-auto">
-                  <div class="copyright text-center my-auto">
-                    <span>Copyright © DSC FUTA 2020</span>
-                  </div>
-                </div>
-              </footer>
+          <div class="content-container">
+            <!-- dropdown -->
+          <div class="mdc-select mdc-select--outlined stack-select-menu" data-select-id="stack-select">
+            <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+              <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+              <span class="mdc-select__dropdown-icon">
+                <svg
+                    class="mdc-select__dropdown-icon-graphic"
+                    viewBox="7 10 10 5">
+                  <polygon
+                      class="mdc-select__dropdown-icon-inactive"
+                      stroke="none"
+                      fill-rule="evenodd"
+                      points="7 10 12 15 17 10">
+                  </polygon>
+                  <polygon
+                      class="mdc-select__dropdown-icon-active"
+                      stroke="none"
+                      fill-rule="evenodd"
+                      points="7 15 12 10 17 15">
+                  </polygon>
+                </svg>
+              </span>
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span id="outlined-select-label" class="mdc-floating-label">Select an option</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
             </div>
-            <!-- /.content-wrapper -->
+          
+            <!-- Other elements from the select remain. -->
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface" role="listbox">
+              <ul class="mdc-list">
+                <li class="mdc-list-item mdc-list-item--selected" aria-selected="true" data-value="all">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">All</span>
+                </li>
+                <li class="mdc-list-item" data-value="web">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Web</span>
+                </li>
+                <li class="mdc-list-item" data-value="mobile">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Mobile</span>
+                </li>
+                <li class="mdc-list-item" data-value="machineLearning">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Machine Learning/AI</span>
+                </li>
+                <li class="mdc-list-item" data-value="cloud">
+                  <span class="mdc-list-item__ripple"></span>
+                  <span class="mdc-list-item__text">Cloud</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- /.dropdown -->
+          <!-- tab -->
+          <div class="mdc-tab-bar" role="tablist"
+          data-tab-bar-id="material-categories">
+            <div class="mdc-tab-scroller">
+              <div class="mdc-tab-scroller__scroll-area">
+                <div class="mdc-tab-scroller__scroll-content">
+                  <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0" data-value="books">
+                    <span class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">books</span>
+                    </span>
+                    <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                  </button>
+                  <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1" data-value="documentations">
+                    <span class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">Documentations</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                  </button>
+                  <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1" data-value="courses">
+                    <span class="mdc-tab__content">
+                      <span class="mdc-tab__text-label">courses</span>
+                    </span>
+                    <span class="mdc-tab-indicator">
+                      <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                    </span>
+                    <span class="mdc-tab__ripple"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.tab -->
+          <!-- cards -->
+          <div class="card-grid">
+            <ul class="mdc-image-list my-image-list" id="card-list">
+              
+            </ul>
+          </div>
+          <!-- /.cards -->
         </div>
+        <!-- /.content-wrapper -->
+        </div>
+        <!-- the add material button -->
+        <button class="mdc-fab mdc-fab--extended mdc-theme--primary-bg page-primary-action" id="addButton">
+          <span class="material-icons mdc-fab__icon">add</span>
+          <span class="mdc-fab__label">Add Materials</span>
+        </button>
       </div>
       <!-- /#wrapper -->
     </div>
@@ -229,14 +191,10 @@
     <script src="js/vendors/firebase-firestore.min.js"></script>
     <script src="js/vendors/firebase-storage.min.js"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
-    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="js/admin.min.js"></script> -->
     <script src="js/firebase.config.js"></script>
     <script src="js/firebase.js"></script>
     <script src="js/admin/dashboard.js"></script>
-    <script src="js/material.js"></script>
+    <!-- <script src="js/material.js"></script> -->
+    <script src="js/admin/tutorialsNew.js"></script>
   </body>
 </html>
