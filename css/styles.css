@@ -134,7 +134,7 @@ a.icon-link {
   width: 100%;
   margin-bottom: 1rem;
 }
-
+/*
 .text-field .mdc-notched-outline .mdc-notched-outline__trailing {
   border-radius: 0 28px 28px 0;
 }
@@ -142,7 +142,7 @@ a.icon-link {
 .text-field .mdc-notched-outline .mdc-notched-outline__leading {
   border-radius: 28px 0 0 28px;
   width: 28px;
-}
+}*/
 
 .text-field.text-field--textarea .material-icons {
   top: 16px;

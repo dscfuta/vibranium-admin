@@ -10,6 +10,7 @@
     <title>DSC Admin - Materials</title>
     <link rel="icon" href="images/icon.png" type="image/png" />
     
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -73,6 +74,13 @@
             <!-- dropdown -->
           <div class="mdc-select mdc-select--outlined stack-select-menu" data-select-id="stack-select">
             <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span id="outlined-select-label" class="mdc-floating-label">Select a stack</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
               <span id="demo-selected-text" class="mdc-select__selected-text"></span>
               <span class="mdc-select__dropdown-icon">
                 <svg
@@ -91,13 +99,6 @@
                       points="7 15 12 10 17 15">
                   </polygon>
                 </svg>
-              </span>
-              <span class="mdc-notched-outline">
-                <span class="mdc-notched-outline__leading"></span>
-                <span class="mdc-notched-outline__notch">
-                  <span id="outlined-select-label" class="mdc-floating-label">Select an option</span>
-                </span>
-                <span class="mdc-notched-outline__trailing"></span>
               </span>
             </div>
           
@@ -178,6 +179,7 @@
         </div>
         <!-- the add material button -->
         <button class="mdc-fab mdc-fab--extended mdc-theme--primary-bg page-primary-action" id="addButton">
+          <div class="mdc-fab__ripple"></div>
           <span class="material-icons mdc-fab__icon">add</span>
           <span class="mdc-fab__label">Add Materials</span>
         </button>
@@ -185,6 +187,418 @@
       <!-- /#wrapper -->
     </div>
 
+    <!--modals-->
+    <!--add/edit modal for books-->
+    <div class="mdc-dialog" id="book-modal" role="dialog" aria-modal="true" aria-labelledby="update-book-dialog-title"
+        aria-describedby="update-dialog-book-content" id="update-book-dialog" data-modal-id= "book-form">
+        <div class="mdc-dialog__container form-dialog">
+          <div class="mdc-dialog__surface">
+            <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+            <h2 class="mdc-dialog__title" id="update-dialog-title">
+              <span class="dialog-mode">Add</span> <span class="category">Book</span>
+            </h2>
+            <!-- icon for rither edit or add instructor -->
+            <div class="update-icon-container">
+              <i class="fas fa-book" id="update-icon"></i>
+            </div>
+            <!-- icon ends -->
+            <!-- inputs -->
+            <div class="mdc-dialog__content" id="update-dialog-content">
+              <!-- title -->
+              <div class="input-area">
+                <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                  <input type="text" 
+                  id="bookTitle" class="mdc-text-field__input modalInput" aria-labelledby="nook title" required autocomplete="off">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label  for="bookTitle" class="mdc-floating-label" id="my-label-id">Title</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- description -->
+              <div class="input-area">
+                <div class="mdc-text-field text-field text-field--textarea mdc-text-field--outlined mdc-text-field--textarea">
+                  <textarea id="bookDesc" class="mdc-text-field__input modalInput" required maxlength="140"></textarea>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="bookDesc" class="mdc-floating-label">Description</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- author -->
+              <div class="input-area">
+                <div class="mdc-text-field text-field mdc-text-field--outlined">
+                  <input type="type" 
+                  id="bookAuthor" class="mdc-text-field__input modalInput" aria-labelledby="book-author" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label  for="bookAuthor" class="mdc-floating-label" id="book-author">Author</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>    
+              <!--link-->
+              <div class="input-area">
+                <div class="mdc-text-field text-field mdc-text-field--outlined">
+                  <input type="url" 
+                  id="bookLink" class="mdc-text-field__input modalInput" aria-labelledby="book-link" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label  for="bookLink" class="mdc-floating-label" id="book-link">Link</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div> 
+              <!--availabiltiy-->
+              <div class="availability">
+                <div class="mdc-form-field">
+                  <div class="mdc-checkbox">
+                    <input type="checkbox" class="mdc-checkbox__native-control" name="book-availability" value="online" id="online"/>
+                    <div class="mdc-checkbox__background">
+                      <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                        <path class="mdc-checkbox__checkmark-path" 
+                        fill="none" 
+                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="online">Online</label>
+                </div>
+                <div class="mdc-form-field">
+                  <div class="mdc-checkbox">
+                    <input type="checkbox" class="mdc-checkbox__native-control"name="book-availability" value="ebook" id='ebook'/>
+                    <div class="mdc-checkbox__background">
+                      <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                        <path class="mdc-checkbox__checkmark-path" 
+                        fill="none" 
+                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="ebook">Ebook</label>
+                </div>
+                <div class="mdc-form-field">
+                  <div class="mdc-checkbox">
+                    <input type="checkbox" class="mdc-checkbox__native-control" name="book-availability" value="printed" id='printed'/>
+                    <div class="mdc-checkbox__background">
+                      <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                        <path class="mdc-checkbox__checkmark-path" 
+                        fill="none" 
+                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <label for="printed">Printed</label>
+                </div>
+              </div>
+              <div class="row">
+                <!--level-->
+                <div class="mdc-select mdc-select--outlined" data-select-id="book-modal-level-select" data-select-type='book-modal-select'>
+                  <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                    <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                    <span class="mdc-select__dropdown-icon">
+                      <svg
+                          class="mdc-select__dropdown-icon-graphic"
+                          viewBox="7 10 10 5">
+                        <polygon
+                            class="mdc-select__dropdown-icon-inactive"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 10 12 15 17 10">
+                        </polygon>
+                        <polygon
+                            class="mdc-select__dropdown-icon-active"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 15 12 10 17 15">
+                        </polygon>
+                      </svg>
+                    </span>
+                    <span class="mdc-notched-outline">
+                      <span class="mdc-notched-outline__leading"></span>
+                      <span class="mdc-notched-outline__notch">
+                        <span id="outlined-select-label" class="mdc-floating-label">Level</span>
+                      </span>
+                      <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                  </div>
+
+                  <!-- Other elements from the select remain. -->
+                  <div class="mdc-select__menu mdc-menu mdc-menu-surface" role="listbox">
+                    <ul class="mdc-list">
+                      <li class="mdc-list-item" data-value="beginner">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Beginner</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="intermidiate">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Intermediate</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="expert">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Expert</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!--stack-->
+                <div class="mdc-select mdc-select--outlined" data-select-id="book-modal-stack-select" data-select-type='book-modal-select'>
+                  <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                    <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                    <span class="mdc-select__dropdown-icon">
+                      <svg
+                          class="mdc-select__dropdown-icon-graphic"
+                          viewBox="7 10 10 5">
+                        <polygon
+                            class="mdc-select__dropdown-icon-inactive"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 10 12 15 17 10">
+                        </polygon>
+                        <polygon
+                            class="mdc-select__dropdown-icon-active"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 15 12 10 17 15">
+                        </polygon>
+                      </svg>
+                    </span>
+                    <span class="mdc-notched-outline">
+                      <span class="mdc-notched-outline__leading"></span>
+                      <span class="mdc-notched-outline__notch">
+                        <span id="outlined-select-label" class="mdc-floating-label">Stack</span>
+                      </span>
+                      <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                  </div>
+
+                  <!-- Other elements from the select remain. -->
+                  <div class="mdc-select__menu mdc-menu mdc-menu-surface" role="listbox">
+                    <ul class="mdc-list">
+                      <li class="mdc-list-item" data-value="web">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Web</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="mobile">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Mobile</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="machineLearning">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Machine Learning/AI</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="cloud">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Cloud</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <footer class="mdc-dialog__actions">
+              <button type="reset" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" id="close-btn">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">Cancel</span>
+              </button>
+              <button type="submit" class="mdc-button mdc-dialog__button" id="updateButton">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__label">
+                  <span class="dialog-mode">add</span>
+                </span>
+              </button>
+            </footer>
+          </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+    </div>
+
+
+    <!--add/edit modal for docs or courses-->
+    <div class="mdc-dialog" id="doc-course-modal" role="dialog" aria-modal="true" aria-labelledby="update-doc-course-dialog-title"
+    aria-describedby="update-dialog-doc-course-content" id="update-book-dialog" data-modal-id= "docs-courses-form">
+        <div class="mdc-dialog__container form-dialog">
+          <div class="mdc-dialog__surface">
+            <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
+            <h2 class="mdc-dialog__title" id="update-dialog-title">
+              <span class="dialog-mode">Add</span>
+              <span class="category">Documentation</span>
+            </h2>
+            <!-- inputs -->
+            <div class="mdc-dialog__content" id="update-dialog-content">
+              <!-- title -->
+              <div class="input-area">
+                <div class="mdc-text-field text-field half-width mdc-text-field--outlined">
+                  <input type="text" 
+                  id="materialTitle" class="mdc-text-field__input modalInput" aria-labelledby="nook title" required autocomplete="off">
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label  for="materialTitle" class="mdc-floating-label" id="my-label-id">Title</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+              <!--link-->
+              <div class="input-area">
+                <div class="mdc-text-field text-field mdc-text-field--outlined">
+                  <input type="url" 
+                  id="materialLink" class="mdc-text-field__input modalInput" aria-labelledby="mat-link" required>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label  for="materialLink" class="mdc-floating-label" id="mat-link">Link</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div> 
+              <div class="row">
+                <!--level-->
+                <div class="mdc-select mdc-select--outlined" data-select-id="mat-modal-level-select" data-select-type="mat-modal-select">
+                  <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                    <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                    <span class="mdc-select__dropdown-icon">
+                      <svg
+                          class="mdc-select__dropdown-icon-graphic"
+                          viewBox="7 10 10 5">
+                        <polygon
+                            class="mdc-select__dropdown-icon-inactive"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 10 12 15 17 10">
+                        </polygon>
+                        <polygon
+                            class="mdc-select__dropdown-icon-active"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 15 12 10 17 15">
+                        </polygon>
+                      </svg>
+                    </span>
+                    <span class="mdc-notched-outline">
+                      <span class="mdc-notched-outline__leading"></span>
+                      <span class="mdc-notched-outline__notch">
+                        <span id="outlined-select-label" class="mdc-floating-label">Level</span>
+                      </span>
+                      <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                  </div>
+
+                  <!-- Other elements from the select remain. -->
+                  <div class="mdc-select__menu mdc-menu mdc-menu-surface" role="listbox">
+                    <ul class="mdc-list">
+                      <li class="mdc-list-item" data-value="beginner">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Beginner</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="intermidiate">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Intermediate</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="expert">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Expert</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!--stack-->
+                <div class="mdc-select mdc-select--outlined" data-select-id="mat-modal-stack-select" data-select-type="mat-modal-select">
+                  <div class="mdc-select__anchor" aria-labelledby="outlined-select-label">
+                    <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                    <span class="mdc-select__dropdown-icon">
+                      <svg
+                          class="mdc-select__dropdown-icon-graphic"
+                          viewBox="7 10 10 5">
+                        <polygon
+                            class="mdc-select__dropdown-icon-inactive"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 10 12 15 17 10">
+                        </polygon>
+                        <polygon
+                            class="mdc-select__dropdown-icon-active"
+                            stroke="none"
+                            fill-rule="evenodd"
+                            points="7 15 12 10 17 15">
+                        </polygon>
+                      </svg>
+                    </span>
+                    <span class="mdc-notched-outline">
+                      <span class="mdc-notched-outline__leading"></span>
+                      <span class="mdc-notched-outline__notch">
+                        <span id="outlined-select-label" class="mdc-floating-label">Stack</span>
+                      </span>
+                      <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                  </div>
+
+                  <!-- Other elements from the select remain. -->
+                  <div class="mdc-select__menu mdc-menu mdc-menu-surface" role="listbox">
+                    <ul class="mdc-list">
+                      <li class="mdc-list-item" data-value="web">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Web</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="mobile">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Mobile</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="machineLearning">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Machine Learning/AI</span>
+                      </li>
+                      <li class="mdc-list-item" data-value="cloud">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">Cloud</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- description -->
+              <div class="input-area">
+                <div class="mdc-text-field text-field text-field--textarea mdc-text-field--outlined mdc-text-field--textarea">
+                  <textarea id="materialDesc" class="mdc-text-field__input modalInput" required maxlength="140"></textarea>
+                  <div class="mdc-notched-outline">
+                    <div class="mdc-notched-outline__leading"></div>
+                    <div class="mdc-notched-outline__notch">
+                      <label for="matDesc" class="mdc-floating-label">Description</label>
+                    </div>
+                    <div class="mdc-notched-outline__trailing"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer class="mdc-dialog__actions">
+              <button type="reset" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" id="close-btn">
+                <span class="mdc-button__label">Cancel</span>
+              </button>
+              <button type="submit" class="mdc-button mdc-dialog__button" id="updateButton">
+                <span class="mdc-button__label">
+                  <span class="dialog-mode">Add</span>
+                </span>
+              </button>
+            </footer>
+          </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+    </div>
+
+    
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <script src="js/vendors/firebase-app.js"></script>
     <script src="js/vendors/firebase-auth.min.js"></script>
