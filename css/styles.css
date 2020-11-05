@@ -134,28 +134,11 @@ a.icon-link {
   width: 100%;
   margin-bottom: 1rem;
 }
-/*
-.text-field .mdc-notched-outline .mdc-notched-outline__trailing {
-  border-radius: 0 28px 28px 0;
-}
-
-.text-field .mdc-notched-outline .mdc-notched-outline__leading {
-  border-radius: 28px 0 0 28px;
-  width: 28px;
-}*/
 
 .text-field.text-field--textarea .material-icons {
   top: 16px;
 }
 
-/* .text-field--textarea.text-field .mdc-notched-outline .mdc-notched-outline__trailing {
-  border-radius: 0 56px 56px 0;
-}
-
-.text-field--textarea.text-field .mdc-notched-outline .mdc-notched-outline__leading {
-  border-radius: 56px 0 0 56px;
-  width: 56px;
-} */
 
 .login-card .login-button {
   width: 80%;
