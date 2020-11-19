@@ -69,6 +69,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.mdc-dialog .availability label {
+  display: block;
+}
 .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background, .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
   border-color: var(--mdc-theme-primary);
   background-color: var(--mdc-theme-primary);
