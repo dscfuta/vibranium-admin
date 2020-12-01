@@ -12,137 +12,107 @@ const ripples = [].map.call(document.querySelectorAll(selector), (el) => {
 });
 // END OF INSTANTIATION OF COMPONENT
 
+// FIREBASE
+// Initialize Cloud Firestore through Firebase
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+// Initialize Firebase Storage
+const storage = firebase.storage();
+const storageRef = storage.ref();
+
 // constants
 const stateOfMaterialsToPresent = {
   stack: 'all',
-  category: 'books'
+  category: 'book'
 }
-//all the materials
-const allMaterials = {
-  web: {
-    books: Array.from({ length: 3}, (_) => ({
-      title: 'Eloquent Javascript',
-      author: 'Marijn Haverbeke',
-      description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-      availability: 'Online, E-book,Printed'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title:'Bootstrap',
-      description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.'
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Introduction to Web Development',
-      description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. '
-    }))
-  },
-  mobile: {
-    books:Array.from({ length: 3}, (_) => ({
-      title: 'Head First Android Development',
-        author: 'Dawn Griffiths',
-        description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
-        availability: 'Online, E-book, Printed'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title: 'Flutter',
-        description: 'Apps take flight with Flutter'
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Kotlin for Java Developers',
-      description: 'The Kotlin programming language is a modern language that gives you more power for your everyday tasks.'
-    }))
-  },
-  machineLearning: {
-    books:Array.from({ length: 3}, (_) => ({
-      title: 'Python Machine Learning',
-      author: 'Sebastian Raschka, Vahid Mirjalili',
-      description: 'Applied machine learning with a solid foundation in theory. Revised and expanded for TensorFlow 2, GANs, and reinforcement learning.',
-      availability: 'Printed'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title: 'Keras',
-      description: 'Keras is an API designed for human beings, not machines.'
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Data Structures',
-        description: 'A good algorithm usually comes together with a set of good data structures that allow the algorithm to manipulate the data efficiently.'
-    }))
-  },
-  cloud: {
-    books:Array.from({ length: 3}, (_) => ({
-      title: 'Cloud Computing',
-      author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-      description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-      availability: 'Online, E-book'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title: 'Google Cloud',
-      description: 'Get started with Google Cloud'
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Google Cloud Platform Fundamentals',
-      description: 'This course introduces you to important concepts and terminology for working with Google Cloud Platform (GCP).'
-    }))
-  }
-}
-allMaterials.all = {
-  books: [...allMaterials.web.books, ...allMaterials.mobile.books, ...allMaterials.machineLearning.books, ...allMaterials.cloud.books],
-  documentations: [...allMaterials.web.documentations, ...allMaterials.mobile.documentations, ...allMaterials.machineLearning.documentations, ...allMaterials.cloud.documentations],
-  courses: [...allMaterials.web.courses, ...allMaterials.mobile.courses, ...allMaterials.machineLearning.courses, ...allMaterials.cloud.courses]
-}
+
 
 // functions
-const handleMaterialsRendering = (state, materials) => {
-  // filter materials
-  const filteredMaterials = getFilteredMaterial(state, materials);
+const handleMaterialsRendering = (state) => {
+  renderSpinner();
+  // get materials from firebase firestore
+  db.collection('materials').get()
+  .then(snapshots => {
+    let materials = [];
+    snapshots.forEach(snapshot => {
+      const material = {
+        id: snapshot.id,
+        data: snapshot.data()
+      }
+      materials.push(material);
+    })
+    
+    // filter materials
+    const filteredMaterials = getFilteredMaterial(state, materials);
 
-  // create cards for the materials
-  const materialCards = generateMaterialCards(state.category, filteredMaterials);
+    // checking if there are materials present for the selected state
+    if (filteredMaterials[0]) {
+      // creating material cards
+      const materialCards = generateMaterialCards(filteredMaterials)
+      console.log('generated: ')
 
-  // render material cards
-  renderMaterials(materialCards);
+      // render the material
+      renderContent(materialCards);
+    }else {
+      throw new Error('no material present for this category selected')
+    }
+  })
+  .catch(err => renderError(err));
 }
-const getFilteredMaterial = (state, generalMaterials) => {
-  // get the materials for a particular stack
-  const materialFilteredByStack = filterMaterial(state.stack, generalMaterials);
+const getFilteredMaterial = (state, materials) => {
+  let filteredMaterials = [];
+  
+  if (state.stack === 'all') {
+    filteredMaterials = materials.filter(material => {
+      return state.category === material.data.type;
+    })
+  }else {
+    filteredMaterials = materials.filter(material => {
+      return state.category === material.data.type && state.stack === material.data.stack;
+    })
+  }
 
-  // get a particular category of material
-  const materialFurtherFilteredByCategory = filterMaterial(state.category, materialFilteredByStack);
-
-  return materialFurtherFilteredByCategory;
+  return filteredMaterials;
 }
 
-const filterMaterial = (criteria, generalMaterials) => {
-  return generalMaterials[criteria];
-}
+const generateMaterialCards = (materials) => {
+  let materialCardTemplate = '';
 
-const generateMaterialCards = (materialCategory, materials) => {
-  return materialCategory === 'books' ? createBookCards(materials) : createDocOrCourseCards(materials);
+  if (materials[0].data.type === 'book') {
+    materialCardTemplate = createBookCards(materials);
+  }else {
+    materialCardTemplate = createDocOrCourseCards(materials);
+  }
+
+  return materialCardTemplate;
 } 
 
 const createBookCards = (books) => {
   let bookCards = '';
   books.forEach(book => {
-    bookCards += `<li class="mdc-image-list__item">
+    bookCards += `<li class="mdc-image-list__item" data-id="${book.id}">
     <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
       <div class="mdc-card__primary-action">
       <div class="card__content">
-        <h2 class="card__title mdc-typography--headline6">${book.title}</h2>
-        <h6 class="card__subtitle card__subtitle--with-icon card__subtitle--no-spacing mdc-typography--body2">${book.author}</h6>
-        <span class="mdc-typography--caption level">Beginner</span>
+        <h2 class="card__title mdc-typography--headline6">${book.data.title}</h2>
+        <h6 class="card__subtitle card__subtitle--with-icon card__subtitle--no-spacing mdc-typography--body2">${book.data.author}</h6>
+        <span class="mdc-typography--caption level">${book.data.level}</span>
       </div>
       <div class="mdc-card__media">
         <img src="./img/material-card-image.png" alt="">
       </div>
       <div class="card__content">
-        <span class="mdc-typography--overline availability">availability: ${book.availability}</span>
+        <span class="mdc-typography--overline availability">availability: ${book.data.availability}</span>
         <div class="mdc-typography--caption description">
-          ${book.description}
+          ${book.data.description}
         </div>
       </div>
       </div>
       <div class="mdc-card__actions">
         <div class="mdc-card__action-buttons">
-          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon">
+          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" href="${book.data.link}">
             launch
           </button>
         </div>
@@ -160,22 +130,22 @@ const createBookCards = (books) => {
 const createDocOrCourseCards = (docs) => {
   let docCards = '';
   docs.forEach(doc => {
-    docCards += `<li class="mdc-image-list__item">
+    docCards += `<li class="mdc-image-list__item" data-id="${doc.id}">
     <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
       <div class="mdc-card__primary-action">
       <div class="card__content">
-        <h2 class="card__title mdc-typography--headline6">${doc.title}</h2>
-        <p class="mdc-typography--caption level">Beginner</p>
+        <h2 class="card__title mdc-typography--headline6">${doc.data.title}</h2>
+        <p class="mdc-typography--caption level">${doc.data.level}</p>
         <div class="mdc-typography--caption">
-          ${doc.description}
+          ${doc.data.description}
         </div>
       </div>
       </div>
       <div class="mdc-card__actions">
         <div class="mdc-card__action-buttons">
-          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button">
+          <a class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" href="${doc.data.link}" target="_blank" rel="noreferer">
             launch
-          </button>
+          </a>
         </div>
         <div class="mdc-card__action-icons">
           <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" title="edit" >edit</button>
@@ -188,23 +158,45 @@ const createDocOrCourseCards = (docs) => {
   return docCards;
 }
 
-const renderMaterials = (materials) => {
+const renderContent = (content) => {
   // get the parent
   const cardsParent = document.getElementById('card-list');
 
   // render material into parent
-  cardsParent.innerHTML = materials;
+  cardsParent.innerHTML = content;
 }
 
+const renderError = (message) => {
+  const template = `
+  <div class="message-wrapper">
+    <h1 class="message-icon">:(</h1>
+    <h2 class="message-text">${message}</h2>
+  </div>
+  `;
+
+  renderContent(template)
+}
+const renderSpinner = () => {
+  const template = `
+      <div class="spinner-wrapper">
+      <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
+  `;
+
+  renderContent(template);
+}
 const changeStateOfPresentedMaterial = (state, value) => {
   // change state 
   stateOfMaterialsToPresent[state] = value;
   //and re-render items 
-  handleMaterialsRendering(stateOfMaterialsToPresent, allMaterials);
+  handleMaterialsRendering(stateOfMaterialsToPresent);
 }
 
 // handle tab activations
 const handleTabActivate = (evt) => {
+  // if the switched tab is for the material category
   if(evt.target.dataset.tabBarId === "material-categories"){
     const tabs = evt.target.querySelectorAll('.mdc-tab');
     const tabID = evt.detail.index;
@@ -223,7 +215,7 @@ const handleSelectChange = () => {
 
 // event listeners
 // when the page first loads
-document.addEventListener('DOMContentLoaded', () => handleMaterialsRendering(stateOfMaterialsToPresent, allMaterials));
+document.addEventListener('DOMContentLoaded', () => handleMaterialsRendering(stateOfMaterialsToPresent));
 
 // whenever the tab is switched
 tabBar.listen('MDCTabBar:activated', handleTabActivate);
