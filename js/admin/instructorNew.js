@@ -238,19 +238,9 @@ function showPage(){
 }
 
 myfuction();
-var config = {
-  apiKey: "AIzaSyB6U0DJvc5eNtmOFd0q7YXXwdB5xl9zRvM",
-  authDomain: "dscfuta-website.firebaseapp.com",
-  databaseURL: "https://dscfuta-website.firebaseio.com",
-  projectId: "dscfuta-website",
-  storageBucket: "dscfuta-website.appspot.com",
-  messagingSenderId: "345694247293"
-};
 
-
-firebase.initializeApp(config);
-var firestore = firebase.firestore();
- 
+// INIT Firebase
+var database = firebase.firestore();
 const addInstructor = document.getElementById('updateButton')
 
  
@@ -260,7 +250,13 @@ const addInstructor = document.getElementById('updateButton')
  let twitterid = document.getElementById('twitterID')
  let githubid = document.getElementById('githubID')
  
-const db = firestore.collection('instructors')
+
+ database.settings({ timestampsInSnapshots: true});
+ var storage = firebase.storage();
+ var storageRef = storage.ref()
+
+ const db = database.collection("instructors")
+
 
 addInstructor.addEventListener('click', function(e){
     e.preventDefault();
@@ -272,6 +268,8 @@ addInstructor.addEventListener('click', function(e){
     let twitteridValue   = twitterid.value;
     let githubidValue    = githubid.value;
 
+  
+    
     // Access the database collection
     db.doc().set({
         name: nameInstructorValue,
@@ -280,21 +278,19 @@ addInstructor.addEventListener('click', function(e){
         twitterID:twitteridValue,
         githubID:githubidValue
     }).then(function(){
-      alert('Saved')
+      window.location.reload()      
     })
     
 });
 
 
-let database = firebase.firestore();
-database.settings({ timestampsInSnapshots: true});
+
 
 database.collection('instructors').get().then((snapshot) =>
 {
   snapshot.docs.forEach(doc =>
     {
       gotData(doc);
-      // console.log(doc.data())
     })
 })
 
