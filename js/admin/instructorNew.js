@@ -1,3 +1,5 @@
+// Initializing Firebase
+
 // // instatiation of all mdc components
 // // text fields
 const textFields = document.querySelectorAll('.mdc-text-field');
@@ -130,7 +132,7 @@ const handleModalOpening = (action, instructor =  {
 
 const fillModalFields = (instructor) => {
   // the input fields
-  const nameUI = document.getElementById('instructorName'),
+  let nameUI = document.getElementById('instructorName'),
   roleUI = document.getElementById('instructorRole'),
   bioUI = document.getElementById('instructorBio'),
   githubUI = document.getElementById('githubID'),
@@ -223,3 +225,123 @@ const handleBlur = (e) => {
 
 // run all event listeners
 initEvents();
+
+
+// To add Spinner before loading
+var spinner;
+function myfuction(){
+  spinner = setTimeout(showPage, 3000);
+}
+function showPage(){
+  document.getElementById('spinner').style.display ="none"
+  document.querySelector('.spinner-out').style.display = "block"
+}
+
+myfuction();
+
+// INIT Firebase
+var database = firebase.firestore();
+const addInstructor = document.getElementById('updateButton')
+
+ 
+ let nameInstructor = document.getElementById('instructorName')
+ let roleInstructor = document.getElementById('instructorRole')
+ let description = document.getElementById('instructorBio')
+ let twitterid = document.getElementById('twitterID')
+ let githubid = document.getElementById('githubID')
+ 
+
+ database.settings({ timestampsInSnapshots: true});
+ var storage = firebase.storage();
+ var storageRef = storage.ref()
+
+ const db = database.collection("instructors")
+
+
+addInstructor.addEventListener('click', function(e){
+    e.preventDefault();
+
+
+    let nameInstructorValue   = nameInstructor.value;
+    let roleInstructorValue    = roleInstructor.value;
+    let descriptionValue    = description.value;
+    let twitteridValue   = twitterid.value;
+    let githubidValue    = githubid.value;
+
+  
+    
+    // Access the database collection
+    db.doc().set({
+        name: nameInstructorValue,
+        role: roleInstructorValue,
+        bio: descriptionValue,
+        twitterID:twitteridValue,
+        githubID:githubidValue
+    }).then(function(){
+      window.location.reload()      
+    })
+    
+});
+
+
+
+
+database.collection('instructors').get().then((snapshot) =>
+{
+  snapshot.docs.forEach(doc =>
+    {
+      gotData(doc);
+    })
+})
+
+function gotData (doc){
+ addInstructor.setAttribute('data-id', doc.id)
+  let name = doc.data().name
+  let role= doc.data().role
+  let bio = doc.data().bio
+  let twitterID = doc.data().twitterID
+  let githubID = doc.data().githubID
+
+  let postData = document.querySelector('.mdc-image-list');
+  postData.innerHTML += `<li class="mdc-image-list__item">
+  <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
+      <div class="mdc-card__primary-action">
+      <div class="mdc-card__media">
+          <div class="user-icon-container">
+              <span class="material-icons user-icon">
+                  person_outline
+              </span>
+          </div>
+      </div>
+  <div class="card__content">
+          <h2 class="card__title mdc-typography--headline6">${name}</h2>
+          <h6 class="card__subtitle card__subtitle--with-icon card__subtitle--no-spacing mdc-typography--subtitle2">${role}</h6>
+          <p class="card__description card__text mdc-typography--body2">${bio}</p>
+          <ul class="mdc-list mdc-list--two-line mdc-list--flush">
+              <li class="mdc-list-item primary" tabindex="0">
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text primary-item">
+                  <span class="mdc-list-item__primary-text">Twitter ID</span>
+                  <span class="mdc-list-item__secondary-text twitter twitterID">${twitterID}</span>
+                </span>
+              </li>
+              <li class="mdc-list-item second">
+                <span class="mdc-list-item__ripple"></span>
+                <span class="mdc-list-item__text secondary">
+                  <span class="mdc-list-item__primary-text">Github ID</span>
+                  <span class="mdc-list-item__secondary-text githubID">${githubID}</span>
+                </span>
+              </li>
+          </ul>
+      </div>
+      </div>
+      <div class="mdc-card__actions">
+        <div class="mdc-card__action-icons">
+          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" title="edit" >edit</button>
+          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon delete-button" title="delete">delete</button>
+        </div>
+      </div>
+  </div>
+  </li>
+  `
+  }

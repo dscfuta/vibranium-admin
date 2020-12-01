@@ -4,7 +4,14 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
-
+#spinner{
+  display: block;
+  margin: auto;
+  
+}
+.spinner-out{
+  display: none;
+}
 .card-grid {
     padding:10px 30px;
     font-size: 10px;
