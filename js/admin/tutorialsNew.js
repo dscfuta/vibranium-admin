@@ -1,4 +1,4 @@
-// instantiation of all components
+// INSTANTIATION OF ALL COMPONENTS
 // select menu
 const selectMenus = document.querySelectorAll('.mdc-select');
 const bookSelectMenus = {};
@@ -56,144 +56,115 @@ formFields.forEach(formField => {
     bookAvailabilityCheckboxes[checkInput.value] = new mdc.checkbox.MDCCheckbox(checkbox);
   }
 })
-
 // END OF INSTANTIATION OF COMPONENT
+
 //UI ELEMENTS
 const addBtn = document.getElementById('addButton');
 const cardList = document.getElementById('card-list');
+const updateButtons = document.querySelectorAll('.updateButton');
 
-// constants
+// FIREBASE
+// Initialize Cloud Firestore through Firebase
+const db = firebase.firestore();
+db.settings({
+  timestampsInSnapshots: true
+});
+
+// CONSTANTS
 //states
 const stateOfMaterialsToPresent = {
   stack: 'all',
-  category: 'books'
+  category: 'book'
 }
-//all the materials
-const allMaterials = {
-  web: {
-    books: Array.from({ length: 3}, (_) => ({
-      title: 'Eloquent Javascript',
-      author: 'Marijn Haverbeke',
-      description: 'This is a book about JavaScript, programming, and the wonders of the digital.',
-      availability: 'online,ebook,printed',
-      stack: 'web'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title:'Bootstrap',
-      description: 'Get started with Bootstrap, the world’s most popular framework for building responsive, mobile-first sites.',
-      stack: 'web'
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Introduction to Web Development',
-      description: 'This course is designed to start you on a path toward future studies in web development and design, no matter how little experience or technical knowledge you currently have. ',
-      stack: 'web'
-    }))
-  },
-  mobile: {
-    books:Array.from({ length: 3}, (_) => ({
-      title: 'Head First Android Development',
-        author: 'Dawn Griffiths',
-        description: 'If you have an idea for a killer Android app, this fully revised and updated edition will help you build your first working application in a jiffy.',
-        availability: 'online,ebook,printed',
-        stack: 'mobile'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title: 'Flutter',
-      description: 'Apps take flight with Flutter',
-      stack: 'mobile'
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Kotlin for Java Developers',
-      description: 'The Kotlin programming language is a modern language that gives you more power for your everyday tasks.',
-      stack: 'mobile'
-    }))
-  },
-  machineLearning: {
-    books:Array.from({ length: 3}, (_) => ({
-      title: 'Python Machine Learning',
-      author: 'Sebastian Raschka, Vahid Mirjalili',
-      description: 'Applied machine learning with a solid foundation in theory. Revised and expanded for TensorFlow 2, GANs, and reinforcement learning.',
-      availability: 'printed',
-      stack: 'machineLearning'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title: 'Keras',
-      description: 'Keras is an API designed for human beings, not machines.',
-      stack: 'machineLearning'
+const cardIDs = {
+  editted:'',
+  deleted: ''
+}
 
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Data Structures',
-        description: 'A good algorithm usually comes together with a set of good data structures that allow the algorithm to manipulate the data efficiently.',
-        stack: 'machineLearning'
-    }))
-  },
-  cloud: {
-    books:Array.from({ length: 3}, (_) => ({
-      title: 'Cloud Computing',
-      author: 'Ricardo Puttini, Thomas Erl, Zaigham Mahmood',
-      description: 'Clouds are distributed technology platforms that leverage sophisticated technology innovations to provide highly scalable and resilient environments that can be remotely utilized by organizations in a multitude of powerful ways.',
-      availability: 'online,ebook',
-      stack: 'cloud'
-    })),
-    documentations: Array.from({ length: 3}, (_) => ({
-      title: 'Google Cloud',
-      description: 'Get started with Google Cloud',
-      stack: 'cloud'
-    })),
-    courses: Array.from({ length: 3}, (_) => ({
-      title: 'Google Cloud Platform Fundamentals',
-      description: 'This course introduces you to important concepts and terminology for working with Google Cloud Platform (GCP).',
-      stack: 'cloud'
-    }))
+// FUNCTIONS
+const getMaterials = async () => {
+  // get the snapshots from firestore
+  const snapshots = await db.collection('materials').get();
+
+  return snapshots
+}
+
+const handleMaterialsRendering = (state) => {
+  // render the spinner in while page fetches data from firestore
+  renderSpinner();
+
+  // get materials from firebase firestore
+  getMaterials()
+  .then(snapshots => {
+    let materials = [];
+    snapshots.forEach(snapshot => {
+      const material = {
+        id: snapshot.id,
+        data: snapshot.data()
+      }
+      // push all the materials gotten to the materials list
+      materials.push(material);
+    })
+    
+    // filter materials
+    const filteredMaterials = getFilteredMaterial(state, materials);
+
+    // checking if there are materials present for the selected state
+    if (filteredMaterials[0]) {
+      // creating material cards
+      const materialCards = generateMaterialCards(filteredMaterials)
+
+      // render the material
+      renderContent(materialCards);
+    }else {
+      // if there's no material for a particular selection
+      throw new Error('no material present for this category selected')
+    }
+  })
+  .catch(err => renderError(err));
+}
+const getFilteredMaterial = (state, materials) => {
+  let filteredMaterials = [];
+  
+  // if the stack selected for render is all, then filter by material category only
+  if (state.stack === 'all') {
+    filteredMaterials = materials.filter(material => {
+      return state.category === material.data.type;
+    })
+  }else {
+    // else, filter by stack and material category
+    filteredMaterials = materials.filter(material => {
+      return state.category === material.data.type && state.stack === material.data.stack;
+    })
   }
-}
-allMaterials.all = {
-  books: [...allMaterials.web.books, ...allMaterials.mobile.books, ...allMaterials.machineLearning.books, ...allMaterials.cloud.books],
-  documentations: [...allMaterials.web.documentations, ...allMaterials.mobile.documentations, ...allMaterials.machineLearning.documentations, ...allMaterials.cloud.documentations],
-  courses: [...allMaterials.web.courses, ...allMaterials.mobile.courses, ...allMaterials.machineLearning.courses, ...allMaterials.cloud.courses]
-}
-//
 
-// functions
-const handleMaterialsRendering = (state, materials) => {
-  // filter materials
-  const filteredMaterials = getFilteredMaterial(state, materials);
-
-  // create cards for the materials
-  const materialCards = generateMaterialCards(state.category, filteredMaterials);
-
-  // render material cards
-  renderMaterials(materialCards);
-}
-const getFilteredMaterial = (state, generalMaterials) => {
-  // get the materials for a particular stack
-  const materialFilteredByStack = filterMaterial(state.stack, generalMaterials);
-
-  // get a particular category of material
-  const materialFurtherFilteredByCategory = filterMaterial(state.category, materialFilteredByStack);
-
-  return materialFurtherFilteredByCategory;
+  return filteredMaterials;
 }
 
-const filterMaterial = (criteria, generalMaterials) => {
-  return generalMaterials[criteria];
-}
+const generateMaterialCards = (materials) => {
+  let materialCardTemplate = '';
 
-const generateMaterialCards = (materialCategory, materials) => {
-  return materialCategory === 'books' ? createBookCards(materials) : createDocOrCourseCards(materials);
+  // if the first material's type is book (def they all have same category after filter)
+  if (materials[0].data.type === 'book') {
+    materialCardTemplate = createBookCards(materials);
+  }else {
+    // if it's not a book
+    materialCardTemplate = createDocOrCourseCards(materials);
+  }
+
+  return materialCardTemplate;
 } 
 
 const createBookCards = (books) => {
   let bookCards = '';
   books.forEach(book => {
-    bookCards += `<li class="mdc-image-list__item" data-stack=${book.stack}>
+    bookCards += `<li class="mdc-image-list__item material-item" data-id="${book.id}" data-stack=${book.data.stack}>
     <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
       <div class="mdc-card__primary-action">
       <div class="card__content">
-        <h2 class="card__title title mdc-typography--headline6">${book.title}</h2>
-        <h6 class="author card__subtitle card__subtitle--with-icon card__subtitle--no-spacing mdc-typography--body2">${book.author}</h6>
-        <span class="mdc-typography--caption level">Beginner</span>
+        <h2 class="card__title mdc-typography--headline6">${book.data.title}</h2>
+        <h6 class="author card__subtitle card__subtitle--with-icon card__subtitle--no-spacing mdc-typography--body2">${book.data.author}</h6>
+        <span class="mdc-typography--caption level">${book.data.level}</span>
       </div>
       <div class="mdc-card__media">
         <img src="./img/material-card-image.png" alt="">
@@ -201,17 +172,17 @@ const createBookCards = (books) => {
       <div class="card__content">
         <span class="mdc-typography--overline small-text"> availability: 
           <span class="availability">
-          ${book.availability}
+          ${book.data.availability}
           </span>
         </span>
         <div class="mdc-typography--caption description">
-          ${book.description}
+          ${book.data.description}
         </div>
       </div>
       </div>
       <div class="mdc-card__actions">
         <div class="mdc-card__action-buttons">
-          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon">
+          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" href="${book.data.link}">
             launch
           </button>
         </div>
@@ -229,22 +200,22 @@ const createBookCards = (books) => {
 const createDocOrCourseCards = (docs) => {
   let docCards = '';
   docs.forEach(doc => {
-    docCards += `<li class="mdc-image-list__item" data-stack=${doc.stack}>
+    docCards += `<li class="mdc-image-list__item material-item" data-id="${doc.id}" data-stack=${doc.data.stack}>
     <div class="mdc-layout-grid__cell mdc-card mdc-card--outline">
       <div class="mdc-card__primary-action">
       <div class="card__content">
-        <h2 class="card__title mdc-typography--headline6 title">${doc.title}</h2>
-        <p class="mdc-typography--caption level">Beginner</p>
+        <h2 class="card__title mdc-typography--headline6 title">${doc.data.title}</h2>
+        <p class="mdc-typography--caption level">${doc.data.level}</p>
         <div class="mdc-typography--caption description">
-          ${doc.description}
+          ${doc.data.description}
         </div>
       </div>
       </div>
       <div class="mdc-card__actions">
         <div class="mdc-card__action-buttons">
-          <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button">
+          <a class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" href="${doc.data.link}" target="_blank" rel="noreferer">
             launch
-          </button>
+          </a>
         </div>
         <div class="mdc-card__action-icons">
           <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon edit-button" title="edit" >edit</button>
@@ -257,23 +228,45 @@ const createDocOrCourseCards = (docs) => {
   return docCards;
 }
 
-const renderMaterials = (materials) => {
+const renderContent = (content) => {
   // get the parent
   const cardsParent = document.getElementById('card-list');
 
   // render material into parent
-  cardsParent.innerHTML = materials;
+  cardsParent.innerHTML = content;
 }
 
+const renderError = (message) => {
+  const errorTemplate = `
+  <div class="message-wrapper">
+    <h1 class="message-icon">:(</h1>
+    <h2 class="message-text">${message}</h2>
+  </div>
+  `;
+
+  renderContent(errorTemplate)
+}
+const renderSpinner = () => {
+  const spinnerTemplate = `
+      <div class="spinner-wrapper">
+      <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
+  `;
+
+  renderContent(spinnerTemplate);
+}
 const changeStateOfPresentedMaterial = (state, value) => {
   // change state 
   stateOfMaterialsToPresent[state] = value;
   //and re-render items 
-  handleMaterialsRendering(stateOfMaterialsToPresent, allMaterials);
+  handleMaterialsRendering(stateOfMaterialsToPresent);
 }
 
 // handle tab activations
 const handleTabActivate = (evt) => {
+  // if the switched tab is for the material category
   if(evt.target.dataset.tabBarId === "material-categories"){
     const tabs = evt.target.querySelectorAll('.mdc-tab');
     const tabID = evt.detail.index;
@@ -337,54 +330,62 @@ const handleBookModalClosing = () => {
 }
 
 const handleMaterialModalClosing = () => {
+  // reset dropdowns
   for (menu in matSelectMenus){
     matSelectMenus[menu].foundation.setSelectedIndex(-1);
   }
 }
+
 //handle click of card list and delegate to the action buttons
 const handleCardlistClick = e => {
   //get the targeted button
   const button = e.target.closest('button');
-
   if (button === null) return
-  const materialCard = button.parentElement.parentElement.parentElement.parentElement;
+
+  // get the id of the clicked material item
+  const materialID = button.closest('.material-item').dataset.id;
 
   if (button.title === 'edit') {
     const action = 'edit';
     const category = stateOfMaterialsToPresent.category;
-    //get the card details
-    const material = getCardDetails(materialCard, category);
-
+  
     //get the modal
     const modal = getModal(category);
 
-    //open the modal
-    openModal(modal, action, category)
+    //get the card details
+    getCardDetails(materialID)
+    .then(material => {
+      //open the modal
+      openModal(modal, action, category);
 
-    //pass the card detail into modal text field
-    handleFillModalField(modal, material, category);
+      //pass the card detail into modal text field
+      handleFillModalField(modal, material, category);
+
+      // update the edit id
+      cardIDs.editted = material.id;
+    })
+  }else if (button.title === 'delete') {
+    // save the id in the variable property
+    cardIDs.deleted = materialID;
+
+    // open the delete modal
+    dialogInstances['delete-material'].open();
   }
 }
 
-const getCardDetails = (materialCard, category) => {
-  const material = {};
-
-  material.title = materialCard.querySelector('.title').textContent.trim();
-  material.level= materialCard.querySelector('.level').textContent.trim();
-  material.description= materialCard.querySelector('.description').textContent.trim();
-  material.stack = materialCard.dataset.stack;
+const getCardDetails = async (materialID) => {
+  // getting data from firestore
+  const data = await db.collection('materials').doc(materialID).get();
+  // get material details
+  const material = {...data.data(), id: data.id}
   
-  if (category === 'books') {
-    material.availability= materialCard.querySelector('.availability').textContent.trim().split(',');
-    material.author= materialCard.querySelector('.author').textContent.trim();
-  }
   return material;
 }
 
 const getModal = (category) => {
   let modal;
 
-  if (category === 'books') {
+  if (category === 'book') {
     modal = dialogInstances['book-form'];
   }else {
     modal = dialogInstances['docs-courses-form'];
@@ -400,15 +401,17 @@ const openModal = (modal, action, category) => {
   const modalActionButton = modal.root.querySelectorAll('.dialog-mode')[1];
   const modalCategoryHeader = modal.root.querySelector('.category');
 
+  // inject values into them
   modalActionHeader.textContent = action;
   modalActionButton.textContent = action;
+  modalActionButton.closest('button').title = action;
   modalCategoryHeader.textContent = category;
 
   modal.open();  
 }
 
 const handleFillModalField = (modal, material, category) => {
-  if (category === 'books') {
+  if (category === 'book') {
     fillBookModal(modal, material);
   }else {
     fillMaterialModal(modal, material);
@@ -482,9 +485,111 @@ const fillDropdown = (dropdown, value) => {
   })
 }
 
+
+// firebase add, edit actions
+const handleFirestoreAddOrEditAction = (e) => {
+  // get the clicked btn
+  const btn = e.target.closest('.updateButton');
+  // get the action saved in the title attribute
+  const action = btn.title;
+
+  let material
+  // if the action is add or edit
+  if (action === 'add' || action === 'edit') {
+    // get the form 
+    const form = btn.parentElement.previousElementSibling;
+    
+    // get all the form values
+    material = getFormValues(form);
+
+    // check if inputted details are valid
+    if (!isValid(material)) return;
+    
+    // disable the action btn so it can't be pressed
+    btn.disabled = true;
+    
+  }
+  
+  // get the modal so it can be closed later
+  const modal = getModal(stateOfMaterialsToPresent.category);
+
+  let addAction, editAction, deleteAction;
+
+  // carry out respective actions in firestore
+  if (action === 'add') {
+    addAction = addMaterialToFirestore(material);
+  }else if( action === 'edit' ) {
+    editAction = editMaterialInFirestore(material, cardIDs.editted);
+  }else if (action === 'delete') {
+    deleteAction = deleteMaterialFromFirestore(cardIDs.deleted)
+  }
+
+  // if any of the listed promises is resolved, then  
+  Promise.any([addAction, editAction, deleteAction])
+  .then(() => {
+    // enable the btn
+    btn.disabled = false;
+    // close the modal
+    modal.close();
+    // rerender the material card
+    handleMaterialsRendering(stateOfMaterialsToPresent);
+  })
+  .catch(err => console.log(err));
+}
+const addMaterialToFirestore = (material) => {
+  return db.collection('materials').add(material)
+}
+const editMaterialInFirestore = (material, id) => {
+  return db.collection('materials').doc(id).update(material)
+}
+const deleteMaterialFromFirestore = (id) => {
+  return db.collection('materials').doc(id).delete();
+}
+
+const isValid = (material) => {
+  // loop through each if the properties and see if the have a defined or valid first item
+  for (detail in material){
+    if (!material[detail][0]) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+const getFormValues = (form) => {
+  const material = {};
+  // get form values
+  material.title = form.querySelector('.material-title').value;
+  material.link = form.querySelector('.material-link').value;
+  material.description = form.querySelector('.material-description').value
+  material.type = stateOfMaterialsToPresent.category;
+
+  // for books specifically
+  if (material.type === 'book') {
+    
+    material.level = bookSelectMenus['book-modal-level-select'].value;
+    material.stack = bookSelectMenus['book-modal-stack-select'].value;
+  
+    material.author = form.querySelector('.material-author').value;
+    material.availability = [];
+
+    for (checkbox in bookAvailabilityCheckboxes) {
+      if (bookAvailabilityCheckboxes[checkbox].checked === true) {
+        material.availability.push(checkbox);
+      }
+    }
+  }else {
+    // for the docs and courses
+    material.level = matSelectMenus['mat-modal-level-select'].value;
+    material.stack = matSelectMenus['mat-modal-stack-select'].value;
+  }
+
+  return material;
+}
+
 // event listeners
 // when the page first loads
-document.addEventListener('DOMContentLoaded', () => handleMaterialsRendering(stateOfMaterialsToPresent, allMaterials));
+document.addEventListener('DOMContentLoaded', () => handleMaterialsRendering(stateOfMaterialsToPresent));
 
 // whenever the tab is switched
 tabBar.listen('MDCTabBar:activated', handleTabActivate);
@@ -502,3 +607,8 @@ addBtn.addEventListener('click',handleAddModalOpening);
 
 // when the card list is clicked
 cardList.addEventListener('click', handleCardlistClick);
+
+// when the edit or add action button is pressed
+updateButtons.forEach(btn => {
+  btn.addEventListener('click', handleFirestoreAddOrEditAction);
+})
